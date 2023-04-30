@@ -1,9 +1,9 @@
-import 'package:Shomridhi/Presentation/Widgets/Loading/loading_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../Config/text_style.dart';
+import '../Loading/loading_widget.dart';
 class CustomButton extends StatelessWidget {
   final String? title;
   final Color? color;

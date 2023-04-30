@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:Shomridhi/Bloc/Slider/slider_cubit.dart';
 import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +10,7 @@ import 'package:hive/hive.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'Bloc/Slider/slider_cubit.dart';
 import 'Constants/Colors/app_colors.dart';
 import 'Dependenci Injection/injection.dart';
 import 'Getx Injection/getx_dependenci_injection.dart' as di;
@@ -83,7 +82,7 @@ class MyApp extends StatelessWidget {
                 supportedLocales: context.supportedLocales,
                 locale: context.locale,
                 debugShowCheckedModeBanner: false,
-                title: 'Tamplate',
+                title: 'Adopbox',
                 theme: ThemeData(
                     primaryColor: kPrimaryColorx,
                     fontFamily: "DMSans"

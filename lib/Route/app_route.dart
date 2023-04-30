@@ -1,9 +1,6 @@
-
-
-
-import 'package:Shomridhi/Bloc/Slider/slider_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../Bloc/Slider/slider_cubit.dart';
 import '../Constants/Strings/app_strings.dart';
 import '../Presentation/Pages/SplashScreen/spalash_screen.dart';
 import '../Presentation/main_screen.dart';

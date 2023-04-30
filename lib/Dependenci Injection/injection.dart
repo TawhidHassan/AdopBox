@@ -1,14 +1,13 @@
 
-import 'package:Shomridhi/Repository/SliderRepository/slider_repository.dart';
-
-import 'package:Shomridhi/service/SSL%20Commerce/ssl_config.dart';
 import 'package:get_it/get_it.dart';
 
 import '../Constants/Strings/app_strings.dart';
 import '../Network/api_client.dart';
 import '../Presentation/Widgets/AleartDialouge/aleart_dialouge_widget.dart';
 
+import '../Repository/SliderRepository/slider_repository.dart';
 import '../Service/LocalDataBase/localdata.dart';
+import '../service/SSL Commerce/ssl_config.dart';
 import '../service/location_service.dart';
 
 

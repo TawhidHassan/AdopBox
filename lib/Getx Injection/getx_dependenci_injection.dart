@@ -1,10 +1,10 @@
 
-import 'package:Shomridhi/Service/LocalDataBase/localdata.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../Dependenci Injection/injection.dart';
 import '../GetX Controller/Slider/SliderController.dart';
 import '../Repository/SliderRepository/slider_repository.dart';
+import '../Service/LocalDataBase/localdata.dart';
 
 
 Future<Map<String, Map<String, String>>> init() async {

@@ -1,6 +1,7 @@
-import 'package:Shomridhi/Data/Model/Home/Slider/SliderResponse.dart';
-import 'package:Shomridhi/Dependenci%20Injection/injection.dart';
 
+
+import '../../Data/Model/Home/Slider/SliderResponse.dart';
+import '../../Dependenci Injection/injection.dart';
 import '../../Network/api_client.dart';
 
 class SliderRepository{

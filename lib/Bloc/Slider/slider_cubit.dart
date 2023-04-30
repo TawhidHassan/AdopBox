@@ -1,8 +1,9 @@
-import 'package:Shomridhi/Data/Model/Home/Slider/SliderResponse.dart';
+
 import 'package:bloc/bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../Data/Model/Home/Slider/SliderResponse.dart';
 import '../../Dependenci Injection/injection.dart';
 import '../../Network/api_client.dart';
 import '../../Repository/SliderRepository/slider_repository.dart';
