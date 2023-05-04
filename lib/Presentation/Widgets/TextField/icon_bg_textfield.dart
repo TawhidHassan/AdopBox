@@ -1,4 +1,4 @@
- import 'package:easy_localization/easy_localization.dart';
+ import 'package:AdopBox/Constants/Colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,10 +14,11 @@ class IconBackgroundTextfield extends StatelessWidget {
   final bool isValueChnged;
   final bool isemail;
   final Function(String)? tap;
-  IconBackgroundTextfield({required this.controller,
+  TextEditingController? controller;
+  IconBackgroundTextfield({ this.controller,
   required this.hintText,required this.readOnly,
   required this.isNumber,this.bgColor,this.borderColor, this.tap,  this.isValueChnged=false,  this.isemail=false,  required this.icons});
-  TextEditingController controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
 
@@ -27,11 +28,11 @@ class IconBackgroundTextfield extends StatelessWidget {
         validator: (value) {
           if (value == null || value.isEmpty) {
             if(isNumber){
-              return tr("Enter a valid mobile number");
+              return "Enter a valid mobile number";
             }else if(isemail){
-              return tr("Enter a valid email address");
+              return "Enter a valid email address";
             }else{
-              return tr("Fill the field");
+              return "Fill the field";
             }
           }else{
             String pattern =
@@ -41,10 +42,10 @@ class IconBackgroundTextfield extends StatelessWidget {
             RegExp regex = RegExp(pattern);
 
             if(isNumber){
-              return value.length < 11 ?tr('invalid number'):null;
+              return value.length < 11 ?'invalid number':null;
             }
             else if(isemail){
-             return !regex.hasMatch(value)?tr('invalid email'):null;
+             return !regex.hasMatch(value)?'invalid email':null;
             } else{
               return null;
             }
@@ -61,10 +62,10 @@ class IconBackgroundTextfield extends StatelessWidget {
         onChanged: isValueChnged?tap:null,
 
         decoration: InputDecoration(
-          hintText: tr(hintText),
+          hintText: hintText,
           hintStyle: TextStyle(color: Colors.grey),
           prefixIcon:  Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.symmetric(horizontal: 14.0,vertical: 13),
             child: SvgPicture.asset(icons,color: Colors.grey,), // icon is 48px widget.
           ),
           fillColor: bgColor,
@@ -76,12 +77,12 @@ class IconBackgroundTextfield extends StatelessWidget {
           ),
           enabledBorder: OutlineInputBorder(
             borderSide:
-            BorderSide(color:borderColor!, width: 1.0),
+            BorderSide(color:textFieldBorder, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(6.0)),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide:
-            BorderSide(color:borderColor!, width: 2.0),
+            BorderSide(color:textFieldBorder, width: 2.0),
             borderRadius: BorderRadius.all(Radius.circular(6.0)),
           ),
         ),

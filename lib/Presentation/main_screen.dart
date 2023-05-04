@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,7 +6,10 @@ import 'package:showcaseview/showcaseview.dart';
 
 import '../Constants/Colors/app_colors.dart';
 
+import 'Pages/Create Post/create_post_page.dart';
 import 'Pages/Home/home_page.dart';
+import 'Pages/Inbox/inbox_page.dart';
+import 'Pages/More/more.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -70,7 +72,9 @@ class _MainScreenState extends State<MainScreen> {
                   },
                   children:[
                     HomePage(),
-                    HomePage(),
+                    CreatePostPage(),
+                    InboxPage(),
+                    MorePage(),
 
                   ],
                 ),
@@ -86,32 +90,61 @@ class _MainScreenState extends State<MainScreen> {
           onTap: _onItemTapped,
           currentIndex: _selectedIndex,
           selectedItemColor: kPrimaryColorx,
+          unselectedLabelStyle: TextStyle(color: unSelectTextColor),
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
                 activeIcon: SvgPicture.asset(
-                  "assets/icons/send-active.svg",
+                  "assets/icons/home.svg",
                   color: kPrimaryColorx,
                 ),
                 icon: Container(
 
                   child: SvgPicture.asset(
-                    "assets/icons/send.svg",
+                    "assets/icons/home.svg",
+                    color: unSelectTextColor,
                   ),
                 ),
-                label: tr("Explore")),
+                label: "Explore"),
             BottomNavigationBarItem(
                 activeIcon: SvgPicture.asset(
-                  "assets/icons/search-active.svg",
+                  "assets/icons/add.svg",
                   color: kPrimaryColorx,
                 ),
                 icon: Container(
 
                   child: SvgPicture.asset(
-                    "assets/icons/search.svg",
+                    "assets/icons/add.svg",
+                    color: unSelectTextColor,
                   ),
                 ),
-                label: tr("Search")),
+                label:"post Create"),
+            BottomNavigationBarItem(
+                activeIcon: SvgPicture.asset(
+                  "assets/icons/sms.svg",
+                  color: kPrimaryColorx,
+                ),
+                icon: Container(
+
+                  child: SvgPicture.asset(
+                    "assets/icons/sms.svg",
+                    color: unSelectTextColor,
+                  ),
+                ),
+                label: "Inbox"),
+            BottomNavigationBarItem(
+                activeIcon: SvgPicture.asset(
+                  "assets/icons/more.svg",
+                  color: kPrimaryColorx,
+                ),
+                icon: Container(
+
+                  child: SvgPicture.asset(
+                    "assets/icons/more.svg",
+                    color: unSelectTextColor,
+                  ),
+                ),
+                label: "More"),
 
 
 

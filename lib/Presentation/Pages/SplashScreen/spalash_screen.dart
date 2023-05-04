@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:AdopBox/Config/text_style.dart';
+import 'package:AdopBox/Constants/Colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,7 +22,7 @@ class SpalashScreen extends StatefulWidget {
 
 class _SpalashScreenState extends State<SpalashScreen> {
   double _textOpacity = 0.0;
-  bool isLogin=false;
+  bool isPreference=false;
 
   var localBd;
   @override
@@ -33,10 +35,10 @@ class _SpalashScreenState extends State<SpalashScreen> {
 
     Timer(Duration(seconds: 4), () {
       setState(() {
-        isLogin?
-        Navigator.pushReplacementNamed(context,MAIN_PAGE): Navigator.pushReplacementNamed(
-            context, LOGIN_PAGE_INTRO);
-        // isLogin?
+        isPreference?
+        Navigator.pushReplacementNamed(context,MAIN_PAGE): Navigator.pushNamedAndRemoveUntil(
+            context, SET_PREFERENCE_PAGE,(route) => false,);
+        // isPreference?
         // Navigator.pushReplacement(context, PageTransition(MainScreen())):Navigator.pushReplacement(context, PageTransition(MainScreen()));
       });
     });
@@ -48,18 +50,19 @@ class _SpalashScreenState extends State<SpalashScreen> {
 
     if (token.get('token') != null) {
       setState(() {
-        isLogin=true;
+        isPreference=true;
 
       });
     } else {
       setState(() {
-        isLogin=false;
+        isPreference=false;
       });
     }
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kPrimaryColorx,
         body:Container(
           height: 1.0.sh,
             width: 1.0.sw,
@@ -73,7 +76,8 @@ class _SpalashScreenState extends State<SpalashScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset('assets/images/Somriddhi.png')
+                        // Image.asset('assets/images/Somriddhi.png')
+                        Text("AdopBox",style: boldText(32.sp,color: Colors.white),)
                       ],
                     ),
                   ],
@@ -88,7 +92,7 @@ class _SpalashScreenState extends State<SpalashScreen> {
 
                     children: [
                       Text("Powered By",style: TextStyle(fontSize: 12),),
-                      SvgPicture.asset('assets/images/maaclogo.svg')
+                      // SvgPicture.asset('assets/images/maaclogo.svg')
                     ],
                   ),
                 ),

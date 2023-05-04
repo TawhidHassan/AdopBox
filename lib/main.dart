@@ -1,6 +1,6 @@
 import 'dart:io';
+import 'package:AdopBox/Config/text_style.dart';
 import 'package:camera/camera.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,20 +44,14 @@ void main() async{
   ));
 
   ///localization
-  await EasyLocalization.ensureInitialized();
+  // await EasyLocalization.ensureInitialized();
 
   ///dependenci injection
   await injection();
   ///Getx dependenci injection
   Map<String, Map<String, String>> _languages = await di.init();
 
-  runApp(
-      EasyLocalization(
-          supportedLocales: const [Locale('bn', 'BD'), Locale('en', 'US')],
-          path: 'assets/translations', // <-- change the path of the translation files
-          fallbackLocale: const Locale('en', 'US'),
-      child:  MyApp(router: AppRouter())
-      )
+  runApp(MyApp(router: AppRouter())
   );
 }
 
@@ -78,14 +72,34 @@ class MyApp extends StatelessWidget {
             splitScreenMode: true,
             builder: (context, child) {
               return GetMaterialApp(
-                localizationsDelegates: context.localizationDelegates,
-                supportedLocales: context.supportedLocales,
-                locale: context.locale,
                 debugShowCheckedModeBanner: false,
                 title: 'Adopbox',
                 theme: ThemeData(
                     primaryColor: kPrimaryColorx,
-                    fontFamily: "DMSans"
+                    fontFamily: "MavenPro",
+                  checkboxTheme: CheckboxThemeData(
+                    fillColor: MaterialStateProperty.all(kPrimaryColorx),
+                    side: BorderSide(color: borderColor)
+                  ),
+                  sliderTheme: SliderThemeData(
+                    overlayColor: kPrimaryColorx,
+                    activeTrackColor: kPrimaryColorx,
+                    inactiveTrackColor: kPrimaryColorx.shade100,
+                    overlayShape: SliderComponentShape.noOverlay,
+                    trackShape: SliderCustomTrackShape(),
+                    thumbColor: kPrimaryColorx
+                  ),
+                  appBarTheme: AppBarTheme(
+                    backgroundColor: whiteBackground,
+                    iconTheme: IconThemeData(
+                      color: appBarTitleTextColor
+                    ),
+                    titleTextStyle: semiBoldText(18.sp,color: appBarTitleTextColor)
+                  ),
+                  radioTheme: RadioThemeData(
+                    fillColor: MaterialStateProperty.all(kPrimaryColorx)
+                  )
+
                 ),
                 onGenerateRoute: router.generateRoute,
               );
@@ -100,5 +114,22 @@ class MyHttpOverrides extends HttpOverrides{
   HttpClient createHttpClient(SecurityContext? context) {
 
     return super.createHttpClient(context) ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+  }
+}
+class SliderCustomTrackShape
+    extends RoundedRectSliderTrackShape {
+  Rect getPreferredRect({
+    required RenderBox parentBox,
+    Offset offset = Offset.zero,
+    required SliderThemeData sliderTheme,
+    bool isEnabled = false,
+    bool isDiscrete = false,
+  }) {
+    final double? trackHeight = sliderTheme.trackHeight;
+    final double trackLeft = offset.dx;
+    final double trackTop =
+        offset.dy + (parentBox.size.height - trackHeight!) / 2;
+    final double trackWidth = parentBox.size.width;
+    return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
   }
 }

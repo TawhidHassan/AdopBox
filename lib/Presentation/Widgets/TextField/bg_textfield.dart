@@ -1,4 +1,3 @@
- import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,23 +13,23 @@ class BackgroundTextfield extends StatelessWidget {
   final String? errormsg;
   final double? height;
   final Function(String)? tap;
-  BackgroundTextfield({required this.controller,
+  TextEditingController? controller;
+  BackgroundTextfield({this.controller,
   required this.hintText,required this.readOnly,
   required this.isNumber,this.bgColor,this.borderColor, this.tap,  this.isValueChnged=false,  this.isemail=false,  this.height=55, this.errormsg="Please Fillup"});
-  TextEditingController controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-
     return TextFormField(
       validator: (value) {
 
         if (value == null || value.isEmpty) {
           if(isNumber){
-            return tr("Enter a valid mobile number");
+            return "Enter a valid mobile number";
           }else if(isemail){
-            return tr("Enter a valid email address");
+            return "Enter a valid email address";
           }else{
-            return tr(errormsg!);
+            return errormsg!;
           }
         }else{
           String pattern =
@@ -41,10 +40,10 @@ class BackgroundTextfield extends StatelessWidget {
           RegExp regex = RegExp(pattern);
 
           if(isNumber){
-            return value.length < 11 ?tr('invalid number'):null;
+            return value.length < 11 ?'invalid number':null;
           }
           else if(isemail){
-           return !regex.hasMatch(value)?tr('invalid email'):null;
+           return !regex.hasMatch(value)?'invalid email':null;
           } else{
             return null;
           }
@@ -61,7 +60,7 @@ class BackgroundTextfield extends StatelessWidget {
       onChanged: isValueChnged?tap:null,
 
       decoration: InputDecoration(
-        hintText: tr(hintText),
+        hintText: hintText,
         hintStyle: TextStyle(color: Colors.grey),
         fillColor: bgColor,
         filled: true,

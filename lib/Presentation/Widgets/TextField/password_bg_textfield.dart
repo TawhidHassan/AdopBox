@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -41,7 +40,7 @@ class _PasswordTextfieldState extends State<PasswordTextfield> {
       readOnly: widget.readOnly,
       controller: widget.controller,
       decoration: InputDecoration(
-        hintText: tr(widget.hintText),
+        hintText: widget.hintText,
         hintStyle: TextStyle(color: Colors.grey),
         suffixIcon: IconButton(
           icon: Icon(

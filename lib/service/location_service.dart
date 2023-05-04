@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:location/location.dart';
+import 'package:logger/logger.dart';
 
 import '../Data/Model/Location/location_model.dart';
 
@@ -28,7 +29,7 @@ class LocationService{
     try{
       var userLoction=await location.getLocation();
       currentLocation=LocationModel(longitude: userLoction.longitude,latitude: userLoction.latitude);
-      print(currentLocation!.latitude);
+      Logger().w(currentLocation!.latitude);
     }catch(e){
       if(e is PlatformException){
         print(e.message);

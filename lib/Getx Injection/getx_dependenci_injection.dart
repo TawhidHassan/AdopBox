@@ -1,7 +1,10 @@
 
+import 'package:AdopBox/GetX%20Controller/Home/HomeController.dart';
+import 'package:AdopBox/GetX%20Controller/Map/MapController.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../Dependenci Injection/injection.dart';
+import '../GetX Controller/PostCreate/PostCreateController.dart';
 import '../GetX Controller/Slider/SliderController.dart';
 import '../Repository/SliderRepository/slider_repository.dart';
 import '../Service/LocalDataBase/localdata.dart';
@@ -29,6 +32,9 @@ Future<Map<String, Map<String, String>>> init() async {
   // Controller
 
   Get.lazyPut(() => SliderController(sliderRepository: Get.find<SliderRepository>()));
+  Get.lazyPut(() => MapController(sliderRepository: Get.find<SliderRepository>()));
+  Get.lazyPut(() => HomeController(sliderRepository: Get.find<SliderRepository>()));
+  Get.lazyPut(() => PostCreateController(sliderRepository: Get.find<SliderRepository>()));
 
   // Get.lazyPut(() => CartController(courseRepository: Get.find<CourseRepository>(),localDataGet: localDb));
 

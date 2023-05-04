@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class SalesCreateRemarkTextfield extends StatelessWidget {
@@ -32,7 +31,7 @@ class SalesCreateRemarkTextfield extends StatelessWidget {
         readOnly: readOnly,
         controller: controller,
         decoration: InputDecoration(
-          hintText: (hintText).tr(),
+          hintText: hintText,
           hintStyle: TextStyle(color: Colors.grey),
           fillColor: Colors.white,
           filled: true,

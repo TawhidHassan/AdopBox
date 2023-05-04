@@ -9,6 +9,7 @@ import '../Repository/SliderRepository/slider_repository.dart';
 import '../Service/LocalDataBase/localdata.dart';
 import '../service/SSL Commerce/ssl_config.dart';
 import '../service/location_service.dart';
+import '../service/location_service_name.dart';
 
 
 GetIt getIt=GetIt.instance;
@@ -20,12 +21,13 @@ Future injection()async{
     // getIt.registerLazySingleton(() => ApiClient(appBaseUrl: BASE_URL));
     getIt.registerSingleton<ApiClient>(ApiClient(appBaseUrl: BASE_URL));
     // getIt.registerSingleton<SslConfig>(SslConfig());
-    getIt.registerLazySingleton(() =>SslConfig());
+    // getIt.registerLazySingleton(() =>SslConfig());
     // getIt.registerSingleton<CustomAleartDialouge>(CustomAleartDialouge());
     getIt.registerLazySingleton(()=>CustomAleartDialouge());
     // // getIt.registerSingleton(() => ApiClient(appBaseUrl: BASE_URL));
     // getIt.registerSingleton<LocationService>(LocationService());
     getIt.registerLazySingleton(()=>LocationService());
+    getIt.registerLazySingleton(()=>LocationNameService());
     // getIt.registerSingleton<LocalDataGet>(LocalDataGet());
     getIt.registerLazySingleton(()=>LocalDataGet());
     // getIt.registerSingleton<SliderRepository>(SliderRepository());
