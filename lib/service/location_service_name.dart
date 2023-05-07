@@ -12,10 +12,10 @@ class LocationNameService{
 
 Future<List<Placemark>?> getLocationName(double? lat,double? lon)async {
   List<Placemark>? placemarks;
-  Logger().i(lat);
+  // Logger().i(lat);
   try{
     placemarks = await placemarkFromCoordinates(lat!, lon!);
-    Logger().d(placemarks);
+    // Logger().d(placemarks);
   }catch(e){
     if(e is PlatformException){
       print(e.message);

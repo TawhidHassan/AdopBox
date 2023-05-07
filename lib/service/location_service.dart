@@ -29,7 +29,7 @@ class LocationService{
     try{
       var userLoction=await location.getLocation();
       currentLocation=LocationModel(longitude: userLoction.longitude,latitude: userLoction.latitude);
-      Logger().w(currentLocation!.latitude);
+      // Logger().w(currentLocation!.latitude);
     }catch(e){
       if(e is PlatformException){
         print(e.message);

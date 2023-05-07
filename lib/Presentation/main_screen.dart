@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:hive/hive.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 import '../Constants/Colors/app_colors.dart';
 
+import '../GetX Controller/ConectivityCheck/ConectivityController.dart';
 import 'Pages/Create Post/create_post_page.dart';
 import 'Pages/Home/home_page.dart';
 import 'Pages/Inbox/inbox_page.dart';
@@ -33,10 +36,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     // TODO: implement initState
-
+    Get.find<ConnectivityController>().onInit();
     users =Hive.box('users');
-
-
     super.initState();
   }
 

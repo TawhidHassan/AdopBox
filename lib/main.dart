@@ -18,6 +18,8 @@ import 'Route/app_route.dart';
 List<CameraDescription>? cameras;
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+
+
   cameras = await availableCameras();
   ///Hydrate bloc Init
   HydratedBloc.storage = await HydratedStorage.build(
@@ -98,7 +100,7 @@ class MyApp extends StatelessWidget {
                   ),
                   radioTheme: RadioThemeData(
                     fillColor: MaterialStateProperty.all(kPrimaryColorx)
-                  )
+                  ),
 
                 ),
                 onGenerateRoute: router.generateRoute,

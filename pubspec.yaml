@@ -70,7 +70,6 @@ dependencies:
   carousel_slider: ^4.2.1
   carousel_indicator: ^1.0.6
   flutter_animation_progress_bar: ^2.3.1
-  pin_code_fields: ^7.4.0
   flutter_html: ^3.0.0-alpha.6
 
 #  ssl commerce
@@ -85,6 +84,10 @@ dependencies:
 
 #  rating bar
   flutter_rating_bar: ^4.0.1
+#  otp
+  pin_code_fields: ^7.4.0
+#  connectivity
+  connectivity_plus: ^3.0.6
 
   quiver: ^3.2.1
 

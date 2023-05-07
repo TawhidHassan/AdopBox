@@ -4,9 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../Bloc/Slider/slider_cubit.dart';
 import '../Constants/Strings/app_strings.dart';
+import '../Presentation/Pages/Auth/login_page.dart';
+import '../Presentation/Pages/Auth/otp_page.dart';
+import '../Presentation/Pages/Auth/personal_info_page.dart';
+import '../Presentation/Pages/Auth/signup_page.dart';
+import '../Presentation/Pages/Community/communit_details_page.dart';
+import '../Presentation/Pages/Community/community_page.dart';
+import '../Presentation/Pages/Community/create_community_post.dart';
 import '../Presentation/Pages/Create Post/create_post_page.dart';
+import '../Presentation/Pages/My Account/my_account_page.dart';
+import '../Presentation/Pages/Notification/notification.dart';
+import '../Presentation/Pages/Others/OtherPages/about_page.dart';
+import '../Presentation/Pages/Others/OtherPages/faq_page.dart';
+import '../Presentation/Pages/Others/OtherPages/privacy_page.dart';
+import '../Presentation/Pages/Others/other_page.dart';
+import '../Presentation/Pages/Password/change_password_page.dart';
+import '../Presentation/Pages/Password/forget_password_page.dart';
 import '../Presentation/Pages/Post/all_post_page.dart';
 import '../Presentation/Pages/Set Radius/set_radius_page.dart';
+import '../Presentation/Pages/Settings/settings_page.dart';
 import '../Presentation/Pages/SplashScreen/spalash_screen.dart';
 import '../Presentation/main_screen.dart';
 
@@ -43,6 +59,38 @@ class AppRouter {
       return MaterialPageRoute(builder: (_) => AllPostPage());
     case CHAT_PAGE_PAGE:
       return MaterialPageRoute(builder: (_) => ChatPage());
+    case SETTINGS_PAGE:
+      return MaterialPageRoute(builder: (_) => SettingsPage());
+    case NOTIFICATION_PAGE:
+      return MaterialPageRoute(builder: (_) => NotificationPage());
+    case OTHER_PAGE:
+      return MaterialPageRoute(builder: (_) => OtherPage());
+    case CHANGE_PASSWORD_PAGE:
+      return MaterialPageRoute(builder: (_) => ChangePasswordPage());
+    case FAQ_PAGE:
+      return MaterialPageRoute(builder: (_) => FAQPage());
+    case ABOUT_PAGE:
+      return MaterialPageRoute(builder: (_) => AboutPage());
+    case PRIVACY_PAGE:
+      return MaterialPageRoute(builder: (_) => PrivacyPage());
+    case PROFILE_PAGE:
+      return MaterialPageRoute(builder: (_) => MyAccount());
+    case LOGIN_PAGE:
+      return MaterialPageRoute(builder: (_) => LoginPage());
+    case SIGNUP_PAGE:
+      return MaterialPageRoute(builder: (_) => SignupPage());
+    case OTP_PAGE:
+      return MaterialPageRoute(builder: (_) => OtpPage());
+    case PERSONAL_INFO_PAGE:
+      return MaterialPageRoute(builder: (_) => PersonalInfoPage());
+    case FORGET_PASSWORD_PAGE:
+      return MaterialPageRoute(builder: (_) => ForgetPasswordPage());
+    case COMUNITY_POST_PAGE:
+      return MaterialPageRoute(builder: (_) => CommunityPage());
+    case COMUNITY_POST_DETAILS_PAGE:
+      return MaterialPageRoute(builder: (_) => CommunityDetailsPage());
+    case COMUNITY_POST_CREATE_PAGE:
+      return MaterialPageRoute(builder: (_) => CreateCommunityPost());
 
 
 

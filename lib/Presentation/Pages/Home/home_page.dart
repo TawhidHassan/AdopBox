@@ -1,5 +1,6 @@
 import 'package:AdopBox/Config/text_style.dart';
 import 'package:AdopBox/Constants/Colors/app_colors.dart';
+import 'package:AdopBox/GetX%20Controller/ConectivityCheck/ConectivityController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,7 +24,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get.find<SliderController>().increment();
     return GetBuilder<HomeController>(
       assignId: true,
       builder: (controller) {
@@ -129,6 +129,33 @@ class HomePage extends StatelessWidget {
               child: CustomScrollView(
                 controller: scrollController,
                 slivers: [
+                  GetBuilder<ConnectivityController>(
+                    assignId: true,
+                    builder: (controller) {
+                      return Obx(() {
+                        return controller.isOffline.value?SliverToBoxAdapter(child: SizedBox()): SliverToBoxAdapter(
+                            child: Container(
+                              height: 36.h,
+                              padding: EdgeInsets.all(10),
+                              color: Color(0XFFFFE7D6),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.cloud_off, color: Color(0xFFDB2B24),
+                                    size: 16.sp,),
+                                  SizedBox(width: 12.sp,),
+                                  Text(
+                                    "you are offline. Check your internet connection.",
+                                    style: regularText(
+                                        14.sp, color: Color(0xFFDB2B24)),)
+                                ],
+                              ),
+                            )
+                        );
+                      });
+                    },
+                  ),
                   SliverToBoxAdapter(child: SizedBox(height: 20.h,),),
                   SliverToBoxAdapter(
                       child: HomeSlider()

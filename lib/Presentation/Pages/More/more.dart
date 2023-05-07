@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../Constants/Colors/app_colors.dart';
+import '../../../Constants/Strings/app_strings.dart';
 import 'Component/more_card.dart';
 
 class MorePage extends StatelessWidget {
@@ -49,7 +50,11 @@ class MorePage extends StatelessWidget {
                         children: [
                           Text("Guest user",style: semiBoldText(20.sp,color: textColor),),
                           SizedBox(height: 6.h,),
-                          Text("Log in or sign up to ",style: regularText(14.sp,color: textColor),),
+                          InkWell(
+                              onTap: (){
+                                Navigator.pushNamed(context, LOGIN_PAGE);
+                              },
+                              child: Text("Log in or sign up to ",style: regularText(14.sp,color: textColor),)),
                         ],
                       ),
                     )
@@ -60,46 +65,66 @@ class MorePage extends StatelessWidget {
             Expanded(
                 flex: 1,
                 child: Divider(
-                  color: dividerColor,thickness: 2,)
+                  color: dividerColor,thickness: 1,)
             ),
             Expanded(
-                flex: 8,
+                flex: 10,
                 child: Column(
                   children: [
                     Container(
-                      padding:EdgeInsets.symmetric(horizontal: 20,vertical: 8),
+                      padding:EdgeInsets.symmetric(horizontal: 20,vertical: 0),
                       width:1.0.sw,
                       child: Row(
                         children: [
                           Expanded(
-                              child:MoreCard(image:"assets/icons/user.svg",title: "My account",)
+                              child:InkWell(
+                                  onTap: (){
+                                    Navigator.pushNamed(context, PROFILE_PAGE);
+                                  },
+                                  child: MoreCard(image:"assets/icons/user.svg",title: "My account",))
                           ),
                           SizedBox(width: 11.w,),
                           Expanded(
-                              child:MoreCard(image:"assets/icons/user.svg",title: "My account",)
+                              child:InkWell(
+                                  onTap: (){
+                                    Navigator.pushNamed(context, SETTINGS_PAGE);
+                                  },
+                                  child: MoreCard(image:"assets/icons/setting.svg",title: "Settings",))
                           ),
                           SizedBox(width: 11.w,),
                           Expanded(
-                              child:MoreCard(image:"assets/icons/user.svg",title: "My account",)
+                              child:InkWell(
+                                  onTap: (){
+                                    Navigator.pushNamed(context, NOTIFICATION_PAGE);
+                                  },
+                                  child: MoreCard(image:"assets/icons/notification.svg",title: "Notifications",))
                           ),
                         ],
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 8),
+                      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 12),
                       width:1.0.sw,
                       child: Row(
                         children: [
                           Expanded(
-                              child:MoreCard(image:"assets/icons/user.svg",title: "My account",)
+                              child:InkWell(
+                                  onTap: (){
+                                    Navigator.pushNamed(context, COMUNITY_POST_PAGE);
+                                  },
+                                  child: MoreCard(image:"assets/icons/message.svg",title: "Community",))
                           ),
                           SizedBox(width: 11.w,),
                           Expanded(
-                              child:MoreCard(image:"assets/icons/user.svg",title: "My account",)
+                              child:InkWell(
+                                  onTap: (){
+                                    Navigator.pushNamed(context, OTHER_PAGE);
+                                  },
+                                  child: MoreCard(image:"assets/icons/more-3.svg",title: "Others",))
                           ),
                           SizedBox(width: 11.w,),
                           Expanded(
-                              child:MoreCard(image:"assets/icons/user.svg",title: "My account",)
+                              child:MoreCard(image:"assets/icons/logout.svg",title: "Logout",)
                           ),
                         ],
                       ),

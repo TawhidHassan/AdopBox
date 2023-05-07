@@ -8,8 +8,11 @@ class PasswordTextfield extends StatefulWidget {
   final String hintText;
   final bool readOnly;
   final bool isNumber;
-  PasswordTextfield({required this.lable,required this.controller, required this.hintText,required this.readOnly, required this.isNumber});
-  TextEditingController controller = TextEditingController();
+  final Color? bgColor;
+  final Color? borderColor;
+  TextEditingController? controller;
+  PasswordTextfield({required this.lable,this.controller,this.bgColor,this.borderColor, required this.hintText,required this.readOnly, required this.isNumber});
+
 
   @override
   State<PasswordTextfield> createState() => _PasswordTextfieldState();
@@ -41,6 +44,7 @@ class _PasswordTextfieldState extends State<PasswordTextfield> {
       controller: widget.controller,
       decoration: InputDecoration(
         hintText: widget.hintText,
+        fillColor: widget.bgColor!,
         hintStyle: TextStyle(color: Colors.grey),
         suffixIcon: IconButton(
           icon: Icon(
@@ -57,7 +61,6 @@ class _PasswordTextfieldState extends State<PasswordTextfield> {
             });
           },
         ),
-        fillColor: Color(0XFFF5F5F5),
         filled: true,
         contentPadding:
         EdgeInsets.symmetric(vertical: 18.h, horizontal: 12.0),
@@ -66,13 +69,13 @@ class _PasswordTextfieldState extends State<PasswordTextfield> {
         ),
         enabledBorder: OutlineInputBorder(
           borderSide:
-          BorderSide(color:Color(0XFFF5F5F5), width: 1.0),
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          BorderSide(color:widget.borderColor!, width: 1.0),
+          borderRadius: BorderRadius.all(Radius.circular(6.0)),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide:
-          BorderSide(color: Color(0XFFF5F5F5), width: 2.0),
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          BorderSide(color:widget.borderColor!, width: 2.0),
+          borderRadius: BorderRadius.all(Radius.circular(6.0)),
         ),
       ),
     );
