@@ -55,6 +55,10 @@ const COMUNITY_POST_CREATE_PAGE = "/COMUNITY_POST_CREATE_PAGE";
 
 ///set Radius page
 const NOTIFICATION_PAGE = "/NOTIFICATION_PAGE";
+
+///Post page
+const POST_DETAILS = "/POST_DETAILS";
+
 ///set Radius page
 const OTHER_PAGE = "/OTHER_PAGE";
 const FAQ_PAGE = "/FAQ_PAGE";

@@ -8,12 +8,14 @@ import '../../../../Constants/Colors/app_colors.dart';
 class SettingButton extends StatelessWidget {
   final String?title;
   final String?image;
-  const SettingButton({Key? key, this.title, this.image}) : super(key: key);
+  final double?padding;
+  const SettingButton({Key? key, this.title, this.image, this.padding=0.0}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 16.h),
+      padding: EdgeInsets.symmetric(horizontal: padding!),
       width: 1.0.sw,
       child: Column(
         children: [
@@ -23,7 +25,7 @@ class SettingButton extends StatelessWidget {
               Row(
                 children: [
                   CircleAvatar(
-                    radius: 24,
+                    radius: 22,
                     backgroundColor: Color(0xFFEBF1F7),
                     child: SvgPicture.asset(image!,height: 18.h,),
                   ),

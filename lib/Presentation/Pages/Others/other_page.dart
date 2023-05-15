@@ -31,6 +31,7 @@ class OtherPage extends StatelessWidget {
                   Navigator.pushNamed(context, PRIVACY_PAGE);
                 },
                 child: SettingButton(image: "assets/icons/money-4.svg",title:"Privacy policy" )),
+
           ],
         ),
       ),

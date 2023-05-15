@@ -14,6 +14,7 @@ const unSelectColor = Color(0xFFD8E4F0);
 const dividerColor = Color(0xFFB4C2D4);
 const borderColor = Color(0xFFB4C2D4);
 const textColor = Color(0xFF2A3551);
+const textColorTwo = Color(0xFF555F71);
 const appBarTitleTextColor = Color(0xFF101836);
 const unSelectTextColor = Color(0xFF8A96A9);
 

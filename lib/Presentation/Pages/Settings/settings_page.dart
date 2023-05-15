@@ -21,6 +21,7 @@ class SettingsPage extends StatelessWidget {
                   Navigator.pushNamed(context, CHANGE_PASSWORD_PAGE);
                 },
                 child: SettingButton(image: "assets/icons/key.svg",title:"Change password" )),
+
             InkWell(
                 onTap: (){
                   Navigator.pushNamed(context, SET_RADIUS_PAGE);
