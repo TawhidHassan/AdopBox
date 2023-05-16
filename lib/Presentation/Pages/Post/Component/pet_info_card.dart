@@ -9,7 +9,8 @@ class PetInfoCard extends StatelessWidget {
   final String? title;
   final String? image;
   final String? value;
-  const PetInfoCard({Key? key, this.title, this.image, this.value}) : super(key: key);
+  final Color? color;
+  const PetInfoCard({Key? key, this.title, this.image, this.value, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class PetInfoCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SvgPicture.asset(image!,),
+          SvgPicture.asset(image!,color: color,),
           SizedBox(height: 13,),
           Text(title!,style: regularText(12.sp,color: textColor),),
           SizedBox(height: 4,),

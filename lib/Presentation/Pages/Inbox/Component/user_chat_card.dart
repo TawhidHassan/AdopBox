@@ -44,7 +44,7 @@ class UserChatCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: 16.h,),
-          Divider(thickness: 1,color: dividerColor,)
+          Divider(thickness: 1,color: unSelectColor,)
         ],
       ),
     );

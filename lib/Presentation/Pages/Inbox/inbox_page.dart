@@ -34,9 +34,10 @@ class InboxPage extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 10,
+              flex: 9,
               child: ListView(
                 children: [
+
                   InkWell(
                        onTap:(){
                          Navigator.pushNamed(context, CHAT_PAGE_PAGE);

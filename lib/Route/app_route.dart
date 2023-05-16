@@ -22,6 +22,8 @@ import '../Presentation/Pages/Password/change_password_page.dart';
 import '../Presentation/Pages/Password/forget_password_page.dart';
 import '../Presentation/Pages/Post/all_post_page.dart';
 import '../Presentation/Pages/Post/post_details_page.dart';
+import '../Presentation/Pages/Post/post_direction_page.dart';
+import '../Presentation/Pages/Post/user_profile.dart';
 import '../Presentation/Pages/Set Radius/set_radius_page.dart';
 import '../Presentation/Pages/Settings/settings_page.dart';
 import '../Presentation/Pages/SplashScreen/spalash_screen.dart';
@@ -94,6 +96,10 @@ class AppRouter {
       return MaterialPageRoute(builder: (_) => CreateCommunityPost());
     case POST_DETAILS:
       return MaterialPageRoute(builder: (_) => PostDetailPage());
+    case USER_DETAILS:
+      return MaterialPageRoute(builder: (_) => Userprofile());
+    case POST_DIRECTION_PAGE:
+      return MaterialPageRoute(builder: (_) => PostDirectionPage());
 
 
 

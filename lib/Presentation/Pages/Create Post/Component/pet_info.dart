@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:numberpicker/numberpicker.dart';
 
 import '../../../Widgets/Button/custom_button.dart';
 import '../../../Widgets/TextField/bg_textfield.dart';
@@ -317,6 +318,60 @@ class Petinfo extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 20.h,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Pet age (Optional)", style: mediumText(16.sp,),),
+                        SizedBox(height: 8.h,),
+                        InkWell(
+                          onTap: (){
+                            ageSheet(context);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 16,vertical: 12),
+                            decoration: BoxDecoration(
+                              borderRadius: borderRadius,
+                              border: Border.all(color: borderColor)
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Select pet age",style: mediumText(16.sp,color: textColor),),
+                                Icon(Icons.keyboard_arrow_right,)
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 20.h,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Pet weight (Optional)", style: mediumText(16.sp,),),
+                        SizedBox(height: 8.h,),
+                        InkWell(
+                          onTap: (){
+                            weightSheet(context);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 16,vertical: 12),
+                            decoration: BoxDecoration(
+                              borderRadius: borderRadius,
+                              border: Border.all(color: borderColor)
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Select pet weight",style: mediumText(16.sp,color: textColor),),
+                                Icon(Icons.keyboard_arrow_right,)
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 20.h,),
                   ],
                 ),
               )
@@ -366,6 +421,7 @@ class Petinfo extends StatelessWidget {
       ),
     );
   }
+
   void categorSheet(BuildContext context){
     showModalBottomSheet(
       backgroundColor: Colors.transparent,
@@ -461,6 +517,320 @@ class Petinfo extends StatelessWidget {
                                   ],
                                 );
                               }
+                          ),
+                        ),
+                      ),
+
+                      Expanded(
+                          flex: 3,
+                          child:Column(
+                            children: [
+                              Divider(color: unSelectColor,thickness: 2,),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 6),
+                                child: CustomButton(
+                                    height: 48.h,
+                                    borderRadius: 4,
+                                    color:kPrimaryColorx,
+                                    textColor: Colors.white,
+                                    title: "Apply",
+                                    onTap: () {
+
+                                    }),
+                              ),
+                            ],
+                          )
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+
+  void ageSheet(BuildContext context){
+    int _currentValue = 2;
+    int _currentValue2 = 2;
+    showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      isScrollControlled: true,
+      // set this to true
+      shape: const RoundedRectangleBorder( // <-- SEE HERE
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(25.0),
+        ),
+      ),
+      builder: (_) {
+        return DraggableScrollableSheet(
+          expand: false,
+          minChildSize: 0.70,
+          initialChildSize: 0.70,
+          builder: (_, controller) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  height: 60.h,
+                  width: 40.w,
+
+                  child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: SvgPicture
+                          .asset("assets/icons/close.svg",)),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(12),
+                          topLeft: Radius.circular(12)
+                      )
+                  ),
+                  height: 0.62.sh,
+                  width: 1.0.sw,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset("assets/icons/border.svg"),
+                                  SizedBox(width: 12.w,),
+                                  Text("Age",style: semiBoldText(20.sp,color: appBarTitleTextColor),)
+                                ],
+                              ),
+                            ),
+                            Divider(color: unSelectColor,thickness: 2,)
+                          ],
+                        ),
+                      ),
+
+                      Expanded(
+                        flex: 13,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                          child: StatefulBuilder(
+                            builder: (context,setState){
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children:[
+                                  NumberPicker(
+                                    decoration:BoxDecoration(
+                                      border: Border(
+                                        top: BorderSide(width: 2.0, color: dividerColor),
+                                        bottom: BorderSide(width: 2.0, color: dividerColor),
+                                      ),
+                                    ),
+                                    value: _currentValue,
+                                    minValue: 0,
+                                    maxValue: 100,
+                                    selectedTextStyle: TextStyle(
+                                        color: textColor,
+                                        fontSize: 32.sp
+                                    ),
+                                    haptics: true,
+                                    onChanged: (value) => setState(() => _currentValue = value),
+                                  ),
+                                  SizedBox(width: 10,),
+                                  Container(
+                                    height: 3,
+                                    width: 3,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100),
+                                      color: textColor
+                                    ),
+                                  ),
+                                  SizedBox(width: 10,),
+                                  NumberPicker(
+                                    decoration:BoxDecoration(
+                                      border: Border(
+                                        top: BorderSide(width: 2.0, color: dividerColor),
+                                        bottom: BorderSide(width: 2.0, color: dividerColor),
+                                      ),
+                                    ),
+                                    selectedTextStyle: TextStyle(
+                                      color: textColor,
+                                        fontSize: 32.sp
+                                    ),
+                                    value: _currentValue2,
+                                    minValue: 0,
+                                    maxValue: 100,
+                                    haptics: true,
+                                    onChanged: (value) => setState(() => _currentValue2 = value),
+                                  ),
+                                  SizedBox(width: 24,),
+                                  Text("Year",style: semiBoldText(14.sp,color: textColor),)
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+
+                      Expanded(
+                          flex: 3,
+                          child:Column(
+                            children: [
+                              Divider(color: unSelectColor,thickness: 2,),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 6),
+                                child: CustomButton(
+                                    height: 48.h,
+                                    borderRadius: 4,
+                                    color:kPrimaryColorx,
+                                    textColor: Colors.white,
+                                    title: "Apply",
+                                    onTap: () {
+
+                                    }),
+                              ),
+                            ],
+                          )
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+  void weightSheet(BuildContext context){
+    int _currentValue = 2;
+    int _currentValue2 = 2;
+    showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      isScrollControlled: true,
+      // set this to true
+      shape: const RoundedRectangleBorder( // <-- SEE HERE
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(25.0),
+        ),
+      ),
+      builder: (_) {
+        return DraggableScrollableSheet(
+          expand: false,
+          minChildSize: 0.70,
+          initialChildSize: 0.70,
+          builder: (_, controller) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  height: 60.h,
+                  width: 40.w,
+
+                  child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: SvgPicture
+                          .asset("assets/icons/close.svg",)),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(12),
+                          topLeft: Radius.circular(12)
+                      )
+                  ),
+                  height: 0.62.sh,
+                  width: 1.0.sw,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset("assets/icons/border.svg"),
+                                  SizedBox(width: 12.w,),
+                                  Text("Weight",style: semiBoldText(20.sp,color: appBarTitleTextColor),)
+                                ],
+                              ),
+                            ),
+                            Divider(color: unSelectColor,thickness: 2,)
+                          ],
+                        ),
+                      ),
+
+                      Expanded(
+                        flex: 13,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                          child: StatefulBuilder(
+                            builder: (context,setState){
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children:[
+                                  NumberPicker(
+                                    decoration:BoxDecoration(
+                                      border: Border(
+                                        top: BorderSide(width: 2.0, color: dividerColor),
+                                        bottom: BorderSide(width: 2.0, color: dividerColor),
+                                      ),
+                                    ),
+                                    value: _currentValue,
+                                    minValue: 0,
+                                    maxValue: 100,
+                                    selectedTextStyle: TextStyle(
+                                        color: textColor,
+                                        fontSize: 32.sp
+                                    ),
+                                    haptics: true,
+                                    onChanged: (value) => setState(() => _currentValue = value),
+                                  ),
+                                  SizedBox(width: 10,),
+                                  Container(
+                                    height: 3,
+                                    width: 3,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100),
+                                      color: textColor
+                                    ),
+                                  ),
+                                  SizedBox(width: 10,),
+                                  NumberPicker(
+                                    decoration:BoxDecoration(
+                                      border: Border(
+                                        top: BorderSide(width: 2.0, color: dividerColor),
+                                        bottom: BorderSide(width: 2.0, color: dividerColor),
+                                      ),
+                                    ),
+                                    selectedTextStyle: TextStyle(
+                                      color: textColor,
+                                        fontSize: 32.sp
+                                    ),
+                                    value: _currentValue2,
+                                    minValue: 0,
+                                    maxValue: 100,
+                                    haptics: true,
+                                    onChanged: (value) => setState(() => _currentValue2 = value),
+                                  ),
+                                  SizedBox(width: 24,),
+                                  Text("KG",style: semiBoldText(14.sp,color: textColor),)
+                                ],
+                              );
+                            },
                           ),
                         ),
                       ),

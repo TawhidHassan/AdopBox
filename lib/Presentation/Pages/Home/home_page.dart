@@ -180,6 +180,7 @@ class HomePage extends StatelessWidget {
   Future<void> refreshList(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 1));
     Get.find<HomeController>().getLocationName();
+    Get.find<ConnectivityController>().onInit();
   }
 
 }

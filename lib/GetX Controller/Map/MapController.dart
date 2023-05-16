@@ -30,11 +30,11 @@ class MapController extends GetxController implements GetxService{
     super.onInit();
   }
 
-  // void onMapCreated(GoogleMapController controller) {
-  //   googleMapController = controller;
-  //   googleMapController!.setMapStyle(Utils.mapStyles).whenComplete(() {
-  //   });
-  // }
+  void onMapCreated(GoogleMapController controller) {
+    googleMapController = controller;
+    googleMapController!.setMapStyle(Utils.mapStyles).whenComplete(() {
+    });
+  }
   // increment() {
   //   currentIndex.value++;
   //   print("object");

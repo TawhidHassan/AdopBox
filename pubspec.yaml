@@ -88,6 +88,8 @@ dependencies:
   pin_code_fields: ^7.4.0
 #  connectivity
   connectivity_plus: ^3.0.6
+#  number picker
+  numberpicker: ^2.1.2
 
   quiver: ^3.2.1
 

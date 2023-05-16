@@ -35,6 +35,7 @@ const SETTINGS_PAGE = "/SETTINGS_PAGE";
 
 //Profile page
 const PROFILE_PAGE = "/PROFILE_PAGE";
+const USER_DETAILS = "/USER_DETAILS";
 const PERSONAL_INFO_PAGE = "/PERSONAL_INFO_PAGE";
 
 //Post page
@@ -58,6 +59,7 @@ const NOTIFICATION_PAGE = "/NOTIFICATION_PAGE";
 
 ///Post page
 const POST_DETAILS = "/POST_DETAILS";
+const POST_DIRECTION_PAGE = "/POST_DIRECTION_PAGE";
 
 ///set Radius page
 const OTHER_PAGE = "/OTHER_PAGE";

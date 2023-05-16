@@ -37,6 +37,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     // TODO: implement initState
     Get.find<ConnectivityController>().onInit();
+    Get.find<ConnectivityController>().setContext(context);
     users =Hive.box('users');
     super.initState();
   }
