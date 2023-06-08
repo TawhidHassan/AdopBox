@@ -1,7 +1,9 @@
+import 'package:AdopBox/Bloc/Category/category_cubit.dart';
 import 'package:AdopBox/Presentation/Pages/Inbox/chat_page.dart';
 import 'package:AdopBox/Presentation/Pages/Set%20Preference/set_preference_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../Bloc/CategoryBreedOrigin/category_breed_origin_cubit.dart';
 import '../Bloc/Slider/slider_cubit.dart';
 import '../Constants/Strings/app_strings.dart';
 import '../Presentation/Pages/Auth/login_page.dart';
@@ -45,6 +47,11 @@ class AppRouter {
 
                 BlocProvider(
                   create: (context) => SliderCubit(),
+                ),
+                BlocProvider(
+                  create: (context) => CategoryCubit(),
+                ),BlocProvider(
+                  create: (context) => CategoryBreedOriginCubit(),
                 ),
 
 

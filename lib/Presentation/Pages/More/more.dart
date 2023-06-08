@@ -2,14 +2,58 @@ import 'package:AdopBox/Config/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive/hive.dart';
+import 'package:logger/logger.dart';
 
 import '../../../Constants/Colors/app_colors.dart';
 import '../../../Constants/Strings/app_strings.dart';
+import '../../../Dependenci Injection/injection.dart';
+import '../../../Getx Injection/getx_dependenci_injection.dart';
+import '../../../Service/LocalDataBase/localdata.dart';
+import '../../Widgets/Button/custom_button.dart';
 import '../Settings/Component/settings_button.dart';
 import 'Component/more_card.dart';
 
-class MorePage extends StatelessWidget {
+class MorePage extends StatefulWidget {
   const MorePage({Key? key}) : super(key: key);
+
+  @override
+  State<MorePage> createState() => _MorePageState();
+}
+
+class _MorePageState extends State<MorePage> {
+
+  String? token;
+  String? name;
+  String? image="";
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? role;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getToken();
+    super.initState();
+  }
+
+  void getToken() async{
+    var tokenx = await getIt<LocalDataGet>().getData();
+    if(tokenx.get('token')!=null){
+      setState(() {
+        token=tokenx.get('token');
+        role=tokenx.get('role');
+        image=tokenx.get('image');
+        name=tokenx.get('name');
+        email=tokenx.get('email');
+        firstName=tokenx.get('firstName');
+        lastName=tokenx.get('lastName');
+      });
+      Logger().e(tokenx.get('name'));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +93,13 @@ class MorePage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Guest user",style: semiBoldText(20.sp,color: textColor),),
+                          Text(name??"",style: semiBoldText(20.sp,color: textColor),),
                           SizedBox(height: 6.h,),
                           InkWell(
                               onTap: (){
                                 Navigator.pushNamed(context, LOGIN_PAGE);
                               },
-                              child: Text("Log in or sign up to ",style: regularText(14.sp,color: textColor),)),
+                              child: Text(email??"Log in or sign up to ",style: regularText(14.sp,color: textColor),)),
                         ],
                       ),
                     )
@@ -177,7 +221,10 @@ class MorePage extends StatelessWidget {
                       SizedBox(height: 16.h,),
                       InkWell(
                           onTap: (){
-                            Navigator.pushNamed(context, PRIVACY_PAGE);
+                            token==null?
+                            Navigator.pushNamed(context, LOGIN_PAGE_INTRO)
+                                :
+                            showAlertDialog(context);
                           },
                           child: SettingButton(image: "assets/icons/logout.svg",title:"Logout",padding: 20 )),
 
@@ -190,5 +237,73 @@ class MorePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  showAlertDialog(BuildContext context) {
+
+    // set up the buttons
+    Widget cancelButton = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CustomButton(
+            height: 48.h,
+            borderRadius: 4,
+            width: 120,
+            color: kPrimaryColorx,
+            textColor: Colors.white,
+            boder: true,
+            title: "Cancel",
+            onTap: () {
+              Navigator.pop(context);
+            }),
+        SizedBox(width: 12,),
+        CustomButton(
+            height: 48.h,
+            width: 120,
+            borderRadius: 4,
+            color: kPrimaryColorx,
+            textColor: Colors.white,
+            boder: false,
+            title: "Logout",
+            onTap: () {
+              deleteData(context);
+            })
+      ],
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      title: Text("Confirmation",style: boldText(20.sp,color: kPrimaryColorx),textAlign: TextAlign.center,),
+      content: SizedBox(
+          width: 300,
+          child: Text("Are you sure you want to logout ?",style: regularText(15.sp,),textAlign: TextAlign.center)),
+      actions: [
+        cancelButton,
+        SizedBox(height: 20,)
+
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  void deleteData(BuildContext context)async{
+    var users = await Hive.openBox('users');
+    users.clear().then((value) {
+      injection();
+      init();
+    });
+    ///update bearer token in api client
+    ///update dependencies
+
+    Navigator.pushNamedAndRemoveUntil(context, LOGIN_PAGE,(route) => false,);
+
   }
 }

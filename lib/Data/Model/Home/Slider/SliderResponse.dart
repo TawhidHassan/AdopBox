@@ -11,11 +11,11 @@ class SliderResponse{
 
 
   bool? success;
-  String? message;
-  List<Slider>?data;
+  String? status;
+  List<Slider>?getData;
 
 
-  SliderResponse(this.success, this.message, this.data);
+  SliderResponse(this.success, this.status, this.getData);
 
   factory SliderResponse.fromJson(Map<String,dynamic>json)=>
       _$SliderResponseFromJson(json);

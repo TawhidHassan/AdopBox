@@ -27,6 +27,7 @@ class MapController extends GetxController implements GetxService{
       location.value=value;
       latLng.value=LatLng(location.value!.latitude!,location.value!.longitude!);
     });
+
     super.onInit();
   }
 

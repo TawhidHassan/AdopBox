@@ -1,3 +1,4 @@
+import 'package:AdopBox/Constants/Colors/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,7 +20,7 @@ class ChatCard extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 2,left: 50),
               padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
-                  color: Color(0XFF5761F6),
+                  color: kPrimaryColorx.shade400,
                   borderRadius: BorderRadius.only(topRight: Radius.circular(8),topLeft: Radius.circular(8) ,bottomRight: Radius.circular(0),bottomLeft:Radius.circular(8)  )
               ),
               child: Text("widget.text!ddddddddddddddddddddddddddddddddddddddddddddddddddcx",style: mediumText(12.sp,color: Color(0xFFFFFFFF)),),
@@ -43,7 +44,7 @@ class ChatCard extends StatelessWidget {
                 margin: EdgeInsets.only(bottom: 2),
                 padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                    color: Color(0XFF5761F6),
+                    color: kPrimaryColorx,
                     borderRadius: BorderRadius.only(topRight: Radius.circular(8),topLeft: Radius.circular(8) ,bottomRight: Radius.circular(8) )
                 ),
                 child: Text("widget.text!",style: mediumText(12.sp,color: Color(0xFFFFFFFF)),),

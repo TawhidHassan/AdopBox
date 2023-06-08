@@ -15,7 +15,7 @@ class SliderRepository{
   }
 
   Future<SliderResponse> getSlider() async{
-    final userRaw=await getIt<ApiClient>().getData(uri: "slide");
+    final userRaw=await getIt<ApiClient>().getData(uri: "api/v1/banner/get-banners?skip=0&limit=?status=1");
 
     return SliderResponse.fromJson(userRaw);
   }

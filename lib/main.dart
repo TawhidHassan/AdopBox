@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:AdopBox/Config/text_style.dart';
+import 'package:AdopBox/Data/Model/PostCreate/PostCreate.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,6 +35,7 @@ void main() async{
 
 
   Box? box= await Hive.openBox('users');
+  Hive.registerAdapter(PostCreateAdapter());
   ///hive model init
   // Hive.registerAdapter(CourseDbAdapter());
 

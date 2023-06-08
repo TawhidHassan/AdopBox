@@ -73,7 +73,7 @@ class ApiClient  {
 
       return jsonDecode(_response.body);
     } catch (e) {
-      print('------------${e.toString()}');
+      Logger().e('------------${e.toString()}');
       return null;
     }
   }
@@ -121,6 +121,7 @@ class ApiClient  {
       Logger().i(jsonDecode(_response.body));
       return jsonDecode(_response.body);
     } catch (e) {
+      Logger().e(e);
       return null;
     }
   }

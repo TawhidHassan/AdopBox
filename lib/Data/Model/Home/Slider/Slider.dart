@@ -7,15 +7,16 @@ part 'Slider.g.dart';
 class Slider{
 
 
-  num? id;
-  String? heading;
-  String? text;
-  String? image;
   num? status;
+  @JsonKey(name: "_id")
+  String? id;
+  String? bannerTitle;
+  String? photo;
+  String? phlinkoto;
   String? created_at;
 
 
-  Slider(this.id, this.heading, this.text, this.image, this.status,
+  Slider(this.status, this.id, this.bannerTitle, this.photo, this.phlinkoto,
       this.created_at);
 
   factory Slider.fromJson(Map<String,dynamic>json)=>

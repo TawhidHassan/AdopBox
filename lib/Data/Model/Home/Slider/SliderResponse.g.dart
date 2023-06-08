@@ -9,8 +9,8 @@ part of 'SliderResponse.dart';
 SliderResponse _$SliderResponseFromJson(Map<String, dynamic> json) =>
     SliderResponse(
       json['success'] as bool?,
-      json['message'] as String?,
-      (json['data'] as List<dynamic>?)
+      json['status'] as String?,
+      (json['getData'] as List<dynamic>?)
           ?.map((e) => Slider.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -18,6 +18,6 @@ SliderResponse _$SliderResponseFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$SliderResponseToJson(SliderResponse instance) =>
     <String, dynamic>{
       'success': instance.success,
-      'message': instance.message,
-      'data': instance.data,
+      'status': instance.status,
+      'getData': instance.getData,
     };

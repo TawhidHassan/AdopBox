@@ -23,6 +23,7 @@ class SpalashScreen extends StatefulWidget {
 class _SpalashScreenState extends State<SpalashScreen> {
   double _textOpacity = 0.0;
   bool isPreference=false;
+  bool isLogin=false;
 
   var localBd;
   @override
@@ -35,9 +36,17 @@ class _SpalashScreenState extends State<SpalashScreen> {
 
     Timer(Duration(seconds: 4), () {
       setState(() {
-        isPreference?
-        Navigator.pushReplacementNamed(context,MAIN_PAGE): Navigator.pushNamedAndRemoveUntil(
+        if(isPreference&&isLogin){
+          Navigator.pushReplacementNamed(context,MAIN_PAGE);
+        }else if(!isPreference){
+          Navigator.pushNamedAndRemoveUntil(
             context, SET_PREFERENCE_PAGE,(route) => false,);
+        }else{
+          Navigator.pushNamedAndRemoveUntil(
+            context, LOGIN_PAGE,(route) => false,);
+        }
+        // isPreference? Navigator.pushReplacementNamed(context,MAIN_PAGE): Navigator.pushNamedAndRemoveUntil(
+        //     context, SET_PREFERENCE_PAGE,(route) => false,);
         // isPreference?
         // Navigator.pushReplacement(context, PageTransition(MainScreen())):Navigator.pushReplacement(context, PageTransition(MainScreen()));
       });
@@ -46,16 +55,25 @@ class _SpalashScreenState extends State<SpalashScreen> {
     super.initState();
   }
   void checkLogin() async {
+    var categories=await localBd.getPrefarenceData();
     var token=await localBd.getData();
-
-    if (token.get('token') != null) {
+    if(categories.get('categories')!=null){
       setState(() {
         isPreference=true;
-
       });
-    } else {
+    }else{
       setState(() {
         isPreference=false;
+      });
+    }
+    if (token.get('token') != null) {
+      setState(() {
+        isLogin=true;
+      });
+    }
+    else {
+      setState(() {
+        isLogin=false;
       });
     }
   }

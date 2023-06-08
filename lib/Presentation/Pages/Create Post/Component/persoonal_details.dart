@@ -1,5 +1,6 @@
 import 'package:AdopBox/Config/text_style.dart';
 import 'package:AdopBox/Constants/Colors/app_colors.dart';
+import 'package:AdopBox/Data/Model/PostCreate/PostCreate.dart';
 import 'package:AdopBox/GetX%20Controller/Map/MapController.dart';
 import 'package:AdopBox/GetX%20Controller/PostCreate/PostCreateController.dart';
 import 'package:AdopBox/Presentation/Widgets/Loading/loading_widget.dart';
@@ -9,18 +10,56 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:logger/logger.dart';
 
+import '../../../../Dependenci Injection/injection.dart';
+import '../../../../Service/LocalDataBase/localdata.dart';
 import '../../../Widgets/Button/custom_button.dart';
 import '../../../Widgets/TextField/bg_textfield.dart';
 
 class PersonalDetails extends StatelessWidget {
   final PostCreateController? postCreateController;
 
-  const PersonalDetails({Key? key, this.postCreateController})
-      : super(key: key);
+  PersonalDetails({Key? key, this.postCreateController}) : super(key: key);
+
+
+  TextEditingController nameController = new TextEditingController();
+  TextEditingController numberController = new TextEditingController();
+  TextEditingController locationController = new TextEditingController();
+  bool? isloading = false;
+  final _globalkey = GlobalKey<FormState>();
+
+  var localBd=getIt<LocalDataGet>();
+  String? name;
+  String? phone;
+  String? id;
+
+  void getToken() async{
+    Get.find<MapController>().onInit();
+    var tokenx = await getIt<LocalDataGet>().getData();
+    if(tokenx.get('token')!=null){
+        name=tokenx.get('name');
+        id=tokenx.get('userId');
+        phone=tokenx.get('phone');
+        nameController.text=name??"";
+        numberController.text=phone??"";
+        postCreateController!.darftPostModel!.postUserName=nameController.text;
+        postCreateController!.darftPostModel!.postUsernumber=numberController.text;
+        postCreateController!.darftPostModel!.postUser=id;
+        postCreateController!.darftPostModel!.lat=Get.find<MapController>().latLng.value!.latitude;
+        postCreateController!.darftPostModel!.long=Get.find<MapController>().latLng.value!.longitude;
+        locationController.text=Get.find<MapController>().latLng.value!.latitude.toString()+", "+Get.find<MapController>().latLng.value!.longitude.toString();
+
+      Logger().e(Get.find<MapController>().latLng.value!.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    getToken();
+    Future.delayed(Duration(seconds: 1), () {
+      getToken();
+    });
     return SizedBox(
       height: 1.0.sh,
       width: 1.0.sw,
@@ -48,7 +87,7 @@ class PersonalDetails extends StatelessWidget {
                             ),
                           ),
                           child: Text("Personal details",
-                            style: mediumText(12.sp, color: kPrimaryColorx),),
+                            style: mediumText(11.sp, color: kPrimaryColorx),),
                         ),
                       ),
                     ),
@@ -56,7 +95,10 @@ class PersonalDetails extends StatelessWidget {
                     Expanded(
                       child: InkWell(
                         onTap: (){
-                          postCreateController!.controller.jumpToPage(1);
+                          if (_globalkey.currentState!.validate()) {
+                            postCreateController!.controller.jumpToPage(1);
+                          }
+
                         },
                         child: Container(
                           padding: EdgeInsets.all(8),
@@ -67,7 +109,7 @@ class PersonalDetails extends StatelessWidget {
                             ),
                           ),
                           child: Text("Pet info",
-                            style: mediumText(12.sp, color: unSelectColor),
+                            style: mediumText(11.sp, color: unSelectColor),
                             textAlign: TextAlign.center,),
                         ),
                       ),
@@ -76,7 +118,10 @@ class PersonalDetails extends StatelessWidget {
                     Expanded(
                       child: InkWell(
                         onTap: (){
-                          postCreateController!.controller.jumpToPage(2);
+                          if (_globalkey.currentState!.validate()) {
+                            postCreateController!.controller.jumpToPage(2);
+                          }
+
                         },
                         child: Container(
                           padding: EdgeInsets.all(8),
@@ -87,7 +132,7 @@ class PersonalDetails extends StatelessWidget {
                             ),
                           ),
                           child: Text("Other info",
-                            style: mediumText(12.sp, color: unSelectColor),),
+                            style: mediumText(11.sp, color: unSelectColor),),
                         ),
                       ),
                     ),
@@ -99,91 +144,104 @@ class PersonalDetails extends StatelessWidget {
               flex: 6,
               child: Container(
                 padding: EdgeInsets.only(left: 20, right: 20,),
-                child: ListView(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Your name", style: mediumText(16.sp,),),
-                        SizedBox(height: 4.h,),
-                        BackgroundTextfield(
-                          controller: null,
-                          readOnly: false,
-                          isNumber: false,
-                          isemail: false,
-                          height: 48.h,
-                          hintText: "Name",
-                          bgColor: whiteBackground,
-                          errormsg: "Please enter amount",
-                          borderColor: borderColor,)
-                      ],
-                    ),
-                    SizedBox(height: 20.h,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Your Phone Number", style: mediumText(
-                          16.sp,),),
-                        SizedBox(height: 4.h,),
-                        BackgroundTextfield(
-                          controller: null,
-                          readOnly: false,
-                          isNumber: false,
-                          isemail: false,
-                          height: 48.h,
-                          hintText: "Phone",
-                          bgColor: whiteBackground,
-                          errormsg: "Please enter amount",
-                          borderColor: borderColor,)
-                      ],
-                    ),
-                    SizedBox(height: 20.h,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Your Location", style: mediumText(16.sp,),),
-                        SizedBox(height: 4.h,),
-                        BackgroundTextfield(
-                          controller: null,
-                          readOnly: false,
-                          isNumber: false,
-                          isemail: false,
-                          height: 48.h,
-                          hintText: "Location",
-                          bgColor: whiteBackground,
-                          errormsg: "Please enter amount",
-                          borderColor: borderColor,)
-                      ],
-                    ),
-                    SizedBox(height: 20.h,),
-                    GetBuilder<MapController>(
-                      assignId: true,
-                      builder: (controller) {
-                        return Obx(() {
-                          return Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: borderColor),
-                                borderRadius: borderRadius
-                            ),
-                            height: 121.h,
-                            child: controller.latLng.value == null
-                                ? LoadingWidget()
-                                : GoogleMap(
-                              initialCameraPosition: CameraPosition(
-                                target: controller.latLng.value!,
-                                zoom: 14,
+                child: Form(
+                  key: _globalkey,
+                  child: ListView(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Your name", style: mediumText(16.sp,),),
+                          SizedBox(height: 4.h,),
+                          BackgroundTextfield(
+                            controller: nameController,
+                            readOnly: false,
+                            isNumber: false,
+                            isemail: false,
+                            height: 48.h,
+                            hintText: "Name",
+                            bgColor: whiteBackground,
+                            errormsg: "Please enter name",
+                            isValueChnged: true,
+                            tap: (text){
+                              postCreateController!.darftPostModel!.postUserName=text;
+                            },
+                            borderColor: borderColor,)
+                        ],
+                      ),
+                      SizedBox(height: 20.h,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Your Phone Number", style: mediumText(
+                            16.sp,),),
+                          SizedBox(height: 4.h,),
+                          BackgroundTextfield(
+                            controller: numberController,
+                            readOnly: false,
+                            isNumber: false,
+                            isemail: false,
+                            height: 48.h,
+                            hintText: "Phone",
+                            bgColor: whiteBackground,
+                            isValueChnged: true,
+                            tap: (text){
+                              postCreateController!.darftPostModel!.postUsernumber=text;
+                            },
+                            errormsg: "Please enter phone",
+                            borderColor: borderColor,)
+                        ],
+                      ),
+                      SizedBox(height: 20.h,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Your Location", style: mediumText(16.sp,),),
+                          SizedBox(height: 4.h,),
+                          BackgroundTextfield(
+                            controller: locationController,
+                            readOnly: true,
+                            isNumber: false,
+                            isemail: false,
+                            height: 48.h,
+                            hintText: "Location",
+                            bgColor: whiteBackground,
+                            errormsg: "Cant Get Your Location",
+                            borderColor: borderColor,)
+                        ],
+                      ),
+                      SizedBox(height: 20.h,),
+                      GetBuilder<MapController>(
+                        assignId: true,
+                        builder: (controller) {
+                          return Obx(() {
+                            return Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: borderColor),
+                                  borderRadius: borderRadius
                               ),
-                              myLocationEnabled: true,
-                              // markers: Set<Marker>.of(_markers),
-                              zoomControlsEnabled: false,
-                              // onMapCreated: controller.onMapCreated,
-                              mapType: controller.currentMapType,
-                            ),
-                          );
-                        });
-                      },
-                    ),
-                  ],
+                              height: 121.h,
+                              child: controller.latLng.value == null
+                                  ?
+                              LoadingWidget()
+                                  :
+                              GoogleMap(
+                                initialCameraPosition: CameraPosition(
+                                  target: controller.latLng.value!,
+                                  zoom: 14,
+                                ),
+                                myLocationEnabled: true,
+                                // markers: Set<Marker>.of(_markers),
+                                zoomControlsEnabled: false,
+                                // onMapCreated: controller.onMapCreated,
+                                mapType: controller.currentMapType,
+                              ),
+                            );
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               )
           ),
@@ -206,7 +264,7 @@ class PersonalDetails extends StatelessWidget {
                             boder: true,
                             title: "Save draft",
                             onTap: () {
-
+                              postCreateController!.saveDraft();
                             }),
                       ),
                       SizedBox(width: 11.w,),
@@ -218,8 +276,10 @@ class PersonalDetails extends StatelessWidget {
                             textColor: Colors.white,
                             title: "Next",
                             onTap: () {
-                              postCreateController!.controller.jumpToPage(1);
-                              print(postCreateController!.controller.page);
+                              if (_globalkey.currentState!.validate()) {
+                                postCreateController!.controller.jumpToPage(1);
+                                // Logger().w(postCreateController!.darftPostModel!.toJson());
+                              }
                             }),
                       ),
                     ],
@@ -232,4 +292,7 @@ class PersonalDetails extends StatelessWidget {
       ),
     );
   }
+
+
+
 }

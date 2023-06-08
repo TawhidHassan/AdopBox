@@ -6,7 +6,7 @@ const String SENDER_ID = '357949915576';
 
 //base url of api
 //staging
-const BASE_URL = "https://staging.somriddhi.com/api/";
+const BASE_URL = "https://pat-adaption-api.onrender.com/";
 const BASE_URL_IMAGE = "https://staging-lms.sgp1.digitaloceanspaces.com/";
 
 
