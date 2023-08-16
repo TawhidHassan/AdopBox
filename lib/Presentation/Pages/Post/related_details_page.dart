@@ -15,27 +15,21 @@ import '../Home/Component/recent_post_component.dart';
 import 'Component/pet_info_card.dart';
 import 'Component/related_post.dart';
 
-class PostDetailPage extends StatelessWidget {
+class RelatedPostDetailPage extends StatelessWidget {
   final String?id, catId;
 
-  const PostDetailPage({Key? key, this.id, this.catId}) : super(key: key);
+  const RelatedPostDetailPage({Key? key, this.id, this.catId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration.zero, () async {
-      Get.find<PostController>().onInit();
-      Get.find<PostController>().getPostDetails(id);
-      Get.find<PostController>().getRelated(id, catId);
-    });
+
+    Get.find<PostController>().onInit();
+    Get.find<PostController>().getPostDetails(id);
+    Get.find<PostController>().getRelated(id, catId);
 
     return Scaffold(
       appBar: AppBar(
         title: Text("Post Details"),
-        leading: BackButton(
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, MAIN_PAGE);
-          },
-        ),
       ),
       body: GetBuilder<PostController>(
 
@@ -140,43 +134,13 @@ class PostDetailPage extends StatelessWidget {
                                     color: kPrimaryColorx),)
                               ],
                             ),
-                            Obx(() {
-                              return Row(
-                                children: [
-                                  controller.favouriteCirculer.value
-                                      ? CircularProgressIndicator()
-                                      : InkWell(
-                                      onTap: () {
-                                        if (controller.singlePost.value!
-                                            .getData!.favouritePost!.contains(
-                                            controller.userId.value)) {
-                                          controller.removeFavouraitePost(
-                                              controller.singlePost.value!
-                                                  .getData!.id).then((value) {
-                                            Get.find<PostController>()
-                                                .getPostDetails(id);
-                                          });
-                                        } else {
-                                          controller.setFavouraitePost(
-                                              controller.singlePost.value!
-                                                  .getData!.id).then((value) {
-                                            Get.find<PostController>()
-                                                .getPostDetails(id);
-                                          });
-                                        }
-                                      },
-                                      child: controller.singlePost.value!
-                                          .getData!.favouritePost!.contains(
-                                          controller.userId.value) ?
-                                      SvgPicture.asset("assets/icons/heart.svg",
-                                        color: Colors.redAccent,) :
-                                      SvgPicture.asset(
-                                        "assets/icons/heart.svg",)),
-                                  SizedBox(width: 8.w,),
-                                  SvgPicture.asset("assets/icons/share.svg",),
-                                ],
-                              );
-                            }),
+                            Row(
+                              children: [
+                                SvgPicture.asset("assets/icons/heart.svg",),
+                                SizedBox(width: 8.w,),
+                                SvgPicture.asset("assets/icons/share.svg",),
+                              ],
+                            ),
                           ],
                         ),
                         SizedBox(height: 12.h,),
@@ -371,9 +335,7 @@ class PostDetailPage extends StatelessWidget {
 
         builder: (controller) {
           return Obx(() {
-            return controller.psotDetailsCirculer.value
-                ? LoadingWidget()
-                : Container(
+            return controller.psotDetailsCirculer.value?LoadingWidget(): Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               color: Colors.white,
               height: 68,

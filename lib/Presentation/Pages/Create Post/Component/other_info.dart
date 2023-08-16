@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:logger/logger.dart';
 
 import '../../../Widgets/Button/custom_button.dart';
 import '../../../Widgets/TextField/bg_textfield.dart';
@@ -388,6 +389,7 @@ class OtherInfo extends StatelessWidget {
                             textColor: Colors.white,
                             title: "Submit Post",
                             onTap: () {
+                              // Logger().w(postCreateController!.darftPostModel!.toMap());
                               postCreateController!.submitPost(context);
                             }),
                       ),

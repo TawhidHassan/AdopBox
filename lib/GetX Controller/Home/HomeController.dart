@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:logger/logger.dart';
 
 import '../../Data/Model/Location/location_model.dart';
 import '../../Dependenci Injection/injection.dart';
@@ -26,23 +27,25 @@ class HomeController extends GetxController implements GetxService{
     locationService.getLocation().then((value){
       location.value=value;
       latLng.value=LatLng(location.value!.latitude!,location.value!.longitude!);
+      Logger().w(latLng.value);
       locationNameService.getLocationName(location.value!.latitude!, location.value!.longitude!).then((valuex){
         adress.value=valuex![0].locality.toString() +
             "," +
-            valuex[0].subLocality.toString()+","+valuex[0].street.toString();
+            valuex[0].subLocality.toString();
       });
     });
     super.onInit();
   }
 
-  getLocationName(){
-    locationService.getLocation().then((value){
+  getLocationName()async{
+   await locationService.getLocation().then((value){
       location.value=value;
       latLng.value=LatLng(location.value!.latitude!,location.value!.longitude!);
+      Logger().w(latLng.value);
       locationNameService.getLocationName(location.value!.latitude!, location.value!.longitude!).then((valuex){
         adress.value=valuex![0].locality.toString() +
             "," +
-            valuex[0].subLocality.toString()+","+valuex[0].street.toString();
+            valuex[0].subLocality.toString();
       });
     });
   }

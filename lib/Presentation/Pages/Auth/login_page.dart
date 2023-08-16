@@ -236,6 +236,7 @@ class LoginPage extends StatelessWidget {
       if (value!.status == "success") {
         await localBd.storeTokenUserdata(
           email: value.user!.email,
+          id: value.user!.id,
           token: value.token,
           name: value.user!.fullName,
           phone: value.user!.phoneNumber,

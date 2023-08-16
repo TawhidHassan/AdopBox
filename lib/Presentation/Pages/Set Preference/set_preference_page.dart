@@ -59,8 +59,10 @@ class SetPreferencePage extends StatelessWidget {
                             Expanded(
                               flex: 1,
                               child: Checkbox(
-                                  value: false,
-                                  onChanged: (value) {}
+                                  value: controller.selectall.value,
+                                  onChanged: (value) {
+
+                                  }
                               ),
                             ),
                             SizedBox(width: 12.w,),
@@ -68,7 +70,11 @@ class SetPreferencePage extends StatelessWidget {
                                 flex: 16,
                                 child: InkWell(
                                   onTap: (){
-                                    controller.CategorySelec(1);
+                                    controller.selectall.value=!controller.selectall.value;
+                                    for(var i=0; i<controller.categoryResponse.value!.getData!.length;i++){
+                                      controller.CategorySelec(i);
+                                    }
+
 
                                   },
                                   child: Text("Select all category",
@@ -118,8 +124,8 @@ class SetPreferencePage extends StatelessWidget {
                   ),
                 ),
                 padding: EdgeInsets.only(
-                    left: 20, right: 20, top: 20, bottom: 8),
-                height: 80.h,
+                    left: 20, right: 20, top: 12, bottom: 12),
+                height: 68.h,
                 child: CustomButton(
                     height: 48.h,
                     borderRadius: 4,
@@ -130,7 +136,7 @@ class SetPreferencePage extends StatelessWidget {
                       if(controller.categoriesList.value.length>=3){
                         log(controller.categoriesList.toString());
                         await localBd.setPrefarenceData(
-                          categories: controller.categoriesList.toString(),
+                           controller.categoriesList.value,
                         ).then((value) => Navigator.pushReplacementNamed(context, "/"));
                       }
                     }),

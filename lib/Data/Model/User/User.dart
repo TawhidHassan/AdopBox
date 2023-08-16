@@ -15,6 +15,8 @@ class User{
   String? active;
   String? fullName;
   String? phoneNumber;
+  String? dob;
+  String? gender;
   num? meetUpdate;
   num? lat;
   num? long;
@@ -22,7 +24,7 @@ class User{
 
 
   User(
-      {this.id,
+      this.id,
       this.role,
       this.request,
       this.email,
@@ -30,10 +32,12 @@ class User{
       this.active,
       this.fullName,
       this.phoneNumber,
+      this.dob,
+      this.gender,
       this.meetUpdate,
       this.lat,
       this.long,
-      this.radius});
+      this.radius);
 
   factory User.fromJson(Map<String,dynamic>json)=>
       _$UserFromJson(json);

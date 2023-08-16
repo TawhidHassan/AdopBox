@@ -6,12 +6,15 @@ import 'package:AdopBox/GetX%20Controller/Map/MapController.dart';
 import 'package:AdopBox/service/location_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../Dependenci Injection/injection.dart';
+import '../../../GetX Controller/Post/PostController.dart';
 import '../../../Utils/MapUtils/Utils.dart';
 import '../../Widgets/Button/custom_button.dart';
 
@@ -56,7 +59,7 @@ class SetRadiusPage extends StatelessWidget {
                     GoogleMap(
                       initialCameraPosition: CameraPosition(
                         target: controller.latLng.value!,
-                        zoom: 14,
+                        zoom: 9,
                       ),
                       myLocationEnabled: true,
                       // markers: Set<Marker>.of(_markers),
@@ -66,7 +69,7 @@ class SetRadiusPage extends StatelessWidget {
                       circles: {
                         Circle( circleId: const CircleId('currentCircle'),
                           center: controller.latLng.value!,
-                          radius:controller.radius.value,
+                          radius:controller.radius.value*1609.34,
                           strokeWidth: 2,
                           fillColor: kPrimaryColorx.shade50,
                           strokeColor:  kPrimaryColorx,
@@ -86,6 +89,7 @@ class SetRadiusPage extends StatelessWidget {
                                 InkWell(
                                     onTap: (){
                                       Navigator.pop(context);
+                                      Get.find<PostController>().getAllPost();
                                     },
                                     child: Icon(Icons.keyboard_backspace_outlined,size: 24.sp,)),
                                 SizedBox(width: 15.w,),
@@ -115,14 +119,14 @@ class SetRadiusPage extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(controller.radius.value.toInt().toString()+"km",style: semiBoldText(8.sp,color: textColor),),
-                                  Text("5000km",style: semiBoldText(8.sp,color: textColor),),
+                                  Text(controller.radius.value.toInt().toString()+"Mi",style: semiBoldText(8.sp,color: textColor),),
+                                  Text("10Mi",style: semiBoldText(8.sp,color: textColor),),
                                 ],
                               ),
                               SizedBox(height: 2.h,),
                               Slider(
                                 min: 0,
-                                max: 5000,
+                                max: 20,
                                 value: controller.radius.value,
                                 onChanged: (value) {
                                   controller.radius.value=value;
@@ -140,11 +144,14 @@ class SetRadiusPage extends StatelessWidget {
                                       textColor: Colors.white,
                                       title: "Set",
                                       onTap: () {
+                                        Navigator.pop(context);
+                                        Get.find<PostController>().getRecentPost();
+                                        Get.find<PostController>().getAllPost();
                                       }),
                                   Row(
                                     children: [
                                       Text("selected radius:",style: regularText(12.sp,color: textColor),),
-                                      Text(controller.radius.value.toInt().toString()+"km",style: boldText(16.sp,color: textColor),),
+                                      Text(controller.radius.value.toInt().toString()+"Mi",style: boldText(16.sp,color: textColor),),
                                     ],
                                   )
 

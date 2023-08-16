@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:AdopBox/Data/Model/Category/Category.dart';
 import 'package:AdopBox/Data/Model/PostCreate/PostCreate.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -31,14 +34,23 @@ class LocalDataGet{
    }
 
 
-   Future setPrefarenceData({String? categories}) async{
+   Future setPrefarenceData(List<dynamic> categories) async{
 
      Box? users= Hive.box('category');
-     users.put("categories", categories);
+     users.put("categories", jsonEncode(categories));
 
      print(users.get('categories'));
      return "done";
    }
+
+
+
+   getCatgoryItem() async {
+     Box? users= Hive.box('category');
+
+     return users.get('categories');
+   }
+
 
    Future storeTokenUserdata({String? token, String? id, String? name, String? email,String? phone}) async{
      print(id);

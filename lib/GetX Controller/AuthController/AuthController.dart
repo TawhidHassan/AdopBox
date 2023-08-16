@@ -10,6 +10,7 @@ import 'package:hive/hive.dart';
 import 'package:logger/logger.dart';
 import '../../Config/text_style.dart';
 import '../../Data/Model/Auth/SignupResponse.dart';
+import '../../Data/Model/User/UserResponse.dart';
 import '../../Getx Injection/getx_dependenci_injection.dart' as di;
 
 import '../../Data/Model/Location/location_model.dart';
@@ -33,16 +34,16 @@ class AuthController extends GetxController implements GetxService{
     count.value++;
     authRepository!.getCheck();
   }
-  final fisrtname="".obs;
-  final lastName="".obs;
+  final bod="".obs;
+  final genders="".obs;
   final name="".obs;
   final number="".obs;
   final image="".obs;
   @override
   void onInit() {
     otpText.value="";
-    fisrtname.value="";
-    lastName.value="";
+    bod.value="";
+    genders.value="";
      name.value="";
      number.value="";
      image.value="";
@@ -90,12 +91,30 @@ class AuthController extends GetxController implements GetxService{
     return data!;
   }
 
-  Future<SignupResponse?> resetPassword({String? email,String? password,String? otp}) async{
+  Future<SignupResponse?> resetPassword({String? oldPass,String? newPass}) async{
     circuler.value=true;
     SignupResponse? data;
-    await authRepository?.resetPassword(email!,password!,otp!).then((value){
+    await authRepository?.resetPassword(newPass!,oldPass!).then((value){
       circuler.value=false;
       data=value;
+      if(value.status=="success"){
+        // Get.snackbar("Update Profile", value.message!);
+        Get.snackbar("", "",
+            backgroundColor: Color(0XFF0EA01D),
+            borderRadius: 4,
+            titleText: Text("Successfully",style: mediumText(14,color: Colors.white),),
+            messageText: Text(value.message!,style: mediumText(14,color: Colors.white),),
+            icon: Image.asset("assets/icons/done2.png"),
+            colorText: Colors.white,
+            padding: EdgeInsets.symmetric(horizontal: 24,vertical: 10),
+            duration: Duration(seconds: 2)
+        );
+
+      }else{
+        Get.snackbar("Update Password", value.message!);
+
+      }
+
       Logger().w(value.message);
     });
     return data!;
@@ -154,40 +173,45 @@ class AuthController extends GetxController implements GetxService{
   }
 
 
+  UserResponse? userResponse;
+    Future<UserResponse?> getUserData()  async{
+      circuler.value=true;
+      userResponse=null;
+      await authRepository?.getUserData().then((value){
+        circuler.value=false;
+        userResponse=value;
+      });
+      return userResponse!;
+    }
 
-  // void upDatProfile(String? fisrtNamex,String? lastNamex, String? namex, String? numberx,BuildContext context) async{
-  //   updateCirculer.value=true;
-  //   await authRepository?.upDatProfile(fisrtNamex!.isEmpty?fisrtname.value:fisrtNamex,
-  //       lastNamex!.isEmpty?lastName.value:lastNamex,namex!.isEmpty?name.value:namex,
-  //       numberx!.isEmpty?number.value:numberx,file).then((value){
-  //     updateCirculer.value=false;
-  //    if(value.success!){
-  //      getProfileData();
-  //      // Get.snackbar("Update Profile", value.message!);
-  //      Get.snackbar("", "",
-  //          backgroundColor: Color(0XFF0EA01D),
-  //          borderRadius: 4,
-  //          titleText: Text("Successfully",style: mediumText(14,color: Colors.white),),
-  //          messageText: Text(value.message!,style: mediumText(14,color: Colors.white),),
-  //          icon: Image.asset("assets/icons/done2.png"),
-  //          colorText: Colors.white,
-  //          padding: EdgeInsets.symmetric(horizontal: 24,vertical: 10),
-  //          duration: Duration(seconds: 2)
-  //      );
-  //      Box? users= Hive.box('users');
-  //      value.data!.photo!=null?
-  //      users.put("image", value.data!.photo):null;
-  //      users.put("firstName", value.data!.firstname!);
-  //      users.put("phone", value.data!.mobile!);
-  //      users.put("lastName", value.data!.lastname).then((value){
-  //        Navigator.pushReplacementNamed(context, MAIN_PAGE,);
-  //      });
-  //
-  //    }else{
-  //      Get.snackbar("Update Profile", value.message!);
-  //    }
-  //   });
-  // }
+
+  void upDatProfile(String? fullName,String? mobile, String? bodx, String? gender,BuildContext context) async{
+    updateCirculer.value=true;
+    await authRepository?.upDatProfile(name: fullName!.isEmpty?name.value:fullName,
+      number:   mobile!.isEmpty?number.value:mobile,bod: bodx!.isEmpty?bod.value:bodx,
+       gender:  gender!.isEmpty?genders.value:gender,file: file).then((value){
+      updateCirculer.value=false;
+     if(value.status=="success"){
+       getUserData();
+       // Get.snackbar("Update Profile", value.message!);
+       Get.snackbar("", "",
+           backgroundColor: Color(0XFF0EA01D),
+           borderRadius: 4,
+           titleText: Text("Successfully",style: mediumText(14,color: Colors.white),),
+           messageText: Text(value.message!,style: mediumText(14,color: Colors.white),),
+           icon: Image.asset("assets/icons/done2.png"),
+           colorText: Colors.white,
+           padding: EdgeInsets.symmetric(horizontal: 24,vertical: 10),
+           duration: Duration(seconds: 2)
+       );
+       Navigator.pop(context,);
+
+     }else{
+       Get.snackbar("Update Profile", value.message!);
+
+     }
+    });
+  }
 
 
   // Future<ForgetPasswordResponse?> passwordChange(String old, String newP, String confrim)  async{

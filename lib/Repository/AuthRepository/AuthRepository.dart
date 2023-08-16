@@ -2,7 +2,10 @@ import 'dart:io';
 
 
 
+import 'package:logger/logger.dart';
+
 import '../../Data/Model/Auth/SignupResponse.dart';
+import '../../Data/Model/User/UserResponse.dart';
 import '../../Dependenci Injection/injection.dart';
 import '../../Network/api_client.dart';
 
@@ -48,17 +51,25 @@ class AuthRepository{
     return SignupResponse.fromJson(userRaw);
   }
 
-  Future<SignupResponse> resetPassword(String email,String password,String otp) async{
+  Future<SignupResponse> resetPassword(String newPass,String oldPass) async{
     Map<String, String> data = {
-      "newPassword":password,
-      "otp":otp,
-      "recipient":email
+      "currentPassword": oldPass,
+      "newPassword": newPass
     };
 
-    final userRaw=await  getIt<ApiClient>().postData(uri: "user/v1/forgot-password", body: data);
+    final userRaw=await  getIt<ApiClient>().patchData(uri: "api/v1/user/pass-update", body: data);
 
     return SignupResponse.fromJson(userRaw);
   }
+  Future<UserResponse> getUserData() async{
+
+
+    final userRaw=await  getIt<ApiClient>().getData(uri: "api/v1/user/get-me");
+
+    Logger().w(userRaw);
+    return UserResponse.fromJson(userRaw);
+  }
+
  //
  //  Future<UserResponse> getProfileData() async{
  //    final userRaw=await  getIt<ApiClient>().getData(uri: "user/profile",);
@@ -66,23 +77,27 @@ class AuthRepository{
  //    return UserResponse.fromJson(userRaw);
  //  }
  //
- // Future<UserRresponseUpdate> upDatProfile(String? firstName,String? lastName, String? name, String? number, File? file)async {
- //   Map<String, String> data = {
- //     'firstname': firstName!,
- //     'lastname': lastName!,
- //     'mobile': number!,
- //     'language': 'en'
- //   };
- //   final userRaw=await  getIt<ApiClient>().postMultipartData(
- //       uri: "user/update-profile",
- //       body: data,
- //       multipartBody:file==null?[]: [
- //         MultipartBody('profile_image', file)
- //       ]
- //   );
- //
- //   return UserRresponseUpdate.fromJson(userRaw);
- // }
+ Future<UserResponse> upDatProfile(
+     {String? name,
+      String? gender,
+      String? bod,
+      String? number,
+      File? file})async {
+   Map<String, String> data = {
+     "fullName": name!,
+     "phoneNumber": number!,
+     "gender":gender!,
+     "dob": bod!
+   };
+   final userRaw=await  getIt<ApiClient>().patchData(
+       uri: "api/v1/user/profile-update",
+       body: data,
+
+   );
+
+   Logger().w(userRaw);
+   return UserResponse.fromJson(userRaw);
+ }
  //
  //
  //  Future<ForgetPasswordResponse>  passwordChange(String old, String newP, String confrim) async{

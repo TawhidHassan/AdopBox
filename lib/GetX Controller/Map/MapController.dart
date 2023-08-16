@@ -13,7 +13,7 @@ class MapController extends GetxController implements GetxService{
   MapController({ this.sliderRepository});
 
   final currentIndex = 0.obs;
-  final radius = 400.0.obs;
+  final radius = 7.0.obs;
   Rx<LocationModel?>  location=Rx<LocationModel?>(null);
   var locationService = getIt<LocationService>();
   Rx<LatLng?> latLng=Rx<LatLng?>(null);

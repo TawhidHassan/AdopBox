@@ -93,7 +93,7 @@ class _MorePageState extends State<MorePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(name??"",style: semiBoldText(20.sp,color: textColor),),
+                          Text(name??"Mr. Nobody",style: semiBoldText(20.sp,color: textColor),),
                           SizedBox(height: 6.h,),
                           InkWell(
                               onTap: (){
@@ -118,7 +118,7 @@ class _MorePageState extends State<MorePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
+                      token==null?SizedBox(): Container(
                         padding:EdgeInsets.symmetric(horizontal: 20,vertical: 0),
                         width:1.0.sw,
                         child: Row(
@@ -142,26 +142,31 @@ class _MorePageState extends State<MorePage> {
                         ),
                       ),
                       SizedBox(height: 16.h,),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: Text("My account",style: mediumText(14.sp,color: textColorTwo),),
+                      token==null?SizedBox(): Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Text("My account",style: mediumText(14.sp,color: textColorTwo),),
+                          ),
+                          SizedBox(height: 16.h,),
+                          InkWell(
+                              onTap: (){
+                                Navigator.pushNamed(context, PROFILE_PAGE);
+                              },
+                              child: SettingButton(image: "assets/icons/user.svg",title:"My profile" ,padding: 20,)),
+                          InkWell(
+                              onTap: (){
+                                Navigator.pushNamed(context, MY_POST_PAGE);
+                              },
+                              child: SettingButton(image: "assets/icons/post.svg",title:"My posts" ,padding: 20)),
+                          InkWell(
+                              onTap: (){
+                                Navigator.pushNamed(context, MY_FAVORAITE_POST_PAGE);
+                              },
+                              child: SettingButton(image: "assets/icons/lovely.svg",title:"Favourite post",padding: 20 )),
+                        ],
                       ),
-                      SizedBox(height: 16.h,),
-                      InkWell(
-                          onTap: (){
-                            Navigator.pushNamed(context, PROFILE_PAGE);
-                          },
-                          child: SettingButton(image: "assets/icons/user.svg",title:"My profile" ,padding: 20,)),
-                      InkWell(
-                          onTap: (){
-                            Navigator.pushNamed(context, PROFILE_PAGE);
-                          },
-                          child: SettingButton(image: "assets/icons/post.svg",title:"My posts" ,padding: 20)),
-                      InkWell(
-                          onTap: (){
-                            Navigator.pushNamed(context, PROFILE_PAGE);
-                          },
-                          child: SettingButton(image: "assets/icons/lovely.svg",title:"Favourite post",padding: 20 )),
                       Divider(
                         color: unSelectColor,thickness: 6,
                       ),
@@ -171,7 +176,7 @@ class _MorePageState extends State<MorePage> {
                         child: Text("Settings",style: mediumText(14.sp,color: textColorTwo),),
                       ),
                       SizedBox(height: 16.h,),
-                      InkWell(
+                      token==null?SizedBox(): InkWell(
                           onTap: (){
                             Navigator.pushNamed(context, CHANGE_PASSWORD_PAGE);
                           },
@@ -222,11 +227,11 @@ class _MorePageState extends State<MorePage> {
                       InkWell(
                           onTap: (){
                             token==null?
-                            Navigator.pushNamed(context, LOGIN_PAGE_INTRO)
+                            Navigator.pushNamed(context, LOGIN_PAGE)
                                 :
                             showAlertDialog(context);
                           },
-                          child: SettingButton(image: "assets/icons/logout.svg",title:"Logout",padding: 20 )),
+                          child: SettingButton(image: "assets/icons/logout.svg",title:token==null?"Login":"Logout",padding: 20 )),
 
                     ],
                   ),

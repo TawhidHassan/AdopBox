@@ -1,3 +1,4 @@
+import 'package:AdopBox/Constants/Strings/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,7 +9,10 @@ import 'package:showcaseview/showcaseview.dart';
 
 import '../Constants/Colors/app_colors.dart';
 
+import '../Dependenci Injection/injection.dart';
 import '../GetX Controller/ConectivityCheck/ConectivityController.dart';
+import '../GetX Controller/Home/HomeController.dart';
+import '../Service/LocalDataBase/localdata.dart';
 import 'Pages/Create Post/create_post_page.dart';
 import 'Pages/Home/home_page.dart';
 import 'Pages/Inbox/inbox_page.dart';
@@ -26,7 +30,8 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
   late PageController _pageController=PageController();
   Box? users;
-
+  bool isLogin=false;
+  var localBd;
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -36,12 +41,28 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     // TODO: implement initState
+    localBd=getIt<LocalDataGet>();
+    checkLogin();
     Get.find<ConnectivityController>().onInit();
     Get.find<ConnectivityController>().setContext(context);
+
     users =Hive.box('users');
     super.initState();
   }
+  void checkLogin() async {
+    var token=await localBd.getData();
 
+    if (token.get('token') != null) {
+      setState(() {
+        isLogin=true;
+      });
+    }
+    else {
+      setState(() {
+        isLogin=false;
+      });
+    }
+  }
   @override
   void dispose() {
     _pageController.dispose();
@@ -66,15 +87,21 @@ class _MainScreenState extends State<MainScreen> {
               width: 1.0.sw,
 
               child:  SizedBox.expand(
-                child: PageView(
+                child:
+                PageView(
                   physics: NeverScrollableScrollPhysics(),
                   controller: _pageController,
                   onPageChanged: (index) {
                     setState(() => _selectedIndex = index);
+                    if(_selectedIndex==1){
+                      Navigator.pushNamed(context, POST_CREATE_PAGE,arguments: {
+                        "isLogin":isLogin
+                      });
+                    }
                   },
                   children:[
                     HomePage(),
-                    CreatePostPage(),
+                    Container(),
                     InboxPage(),
                     MorePage(),
 
@@ -114,7 +141,6 @@ class _MainScreenState extends State<MainScreen> {
                   color: kPrimaryColorx,
                 ),
                 icon: Container(
-
                   child: SvgPicture.asset(
                     "assets/icons/add.svg",
                     color: unSelectTextColor,

@@ -12,6 +12,8 @@ import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 import '../../../Constants/Strings/app_strings.dart';
 import '../../../GetX Controller/Home/HomeController.dart';
+import '../../../GetX Controller/Map/MapController.dart';
+import '../../../GetX Controller/Post/PostController.dart';
 import '../../Widgets/TextField/icon_bg_textfield.dart';
 import 'Component/category_component.dart';
 import 'Component/home_slider.dart';
@@ -24,6 +26,12 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration(milliseconds: 2000), () {
+      Get.find<HomeController>().onInit();
+      Get.find<MapController>().onInit();
+      Get.find<HomeController>().getLocationName();
+      Get.find<PostController>().getRecentPost();
+    });
     return GetBuilder<HomeController>(
       assignId: true,
       builder: (controller) {
@@ -181,6 +189,7 @@ class HomePage extends StatelessWidget {
     await Future.delayed(const Duration(seconds: 1));
     Get.find<HomeController>().getLocationName();
     Get.find<ConnectivityController>().onInit();
+    Get.find<PostController>().getRecentPost();
   }
 
 }

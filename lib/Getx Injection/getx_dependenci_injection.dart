@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../Dependenci Injection/injection.dart';
 import '../GetX Controller/ConectivityCheck/ConectivityController.dart';
+import '../GetX Controller/Post/PostController.dart';
 import '../GetX Controller/PostCreate/PostCreateController.dart';
 import '../GetX Controller/Slider/SliderController.dart';
 import '../Repository/AuthRepository/AuthRepository.dart';
@@ -44,6 +45,7 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => MapController(sliderRepository: Get.find<SliderRepository>()));
   Get.lazyPut(() => HomeController(sliderRepository: Get.find<SliderRepository>()));
   Get.lazyPut(() => PostCreateController(postRepository: Get.find<PostRepository>(),localDataGet: localDb));
+  Get.lazyPut(() => PostController(postRepository: Get.find<PostRepository>(),localDataGet: localDb));
   Get.lazyPut(() => ConnectivityController());
 
   // Get.lazyPut(() => CartController(courseRepository: Get.find<CourseRepository>(),localDataGet: localDb));

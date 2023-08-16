@@ -39,7 +39,7 @@ class PatCategoryCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                       image: DecorationImage(
                         image: image,
-                        scale: 1.0,
+
                       )
                   ),
                 ),

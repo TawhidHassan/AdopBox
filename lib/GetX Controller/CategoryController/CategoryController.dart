@@ -26,6 +26,7 @@ class CategoryController extends GetxController implements GetxService{
   CategoryController({ this.categoryRepository});
 
     final circuler=false.obs;
+    final selectall=false.obs;
     final categoriesList=[].obs;
     final updateCirculer=false.obs;
 

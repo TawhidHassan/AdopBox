@@ -43,7 +43,7 @@ class _SpalashScreenState extends State<SpalashScreen> {
             context, SET_PREFERENCE_PAGE,(route) => false,);
         }else{
           Navigator.pushNamedAndRemoveUntil(
-            context, LOGIN_PAGE,(route) => false,);
+            context, MAIN_PAGE,(route) => false,);
         }
         // isPreference? Navigator.pushReplacementNamed(context,MAIN_PAGE): Navigator.pushNamedAndRemoveUntil(
         //     context, SET_PREFERENCE_PAGE,(route) => false,);

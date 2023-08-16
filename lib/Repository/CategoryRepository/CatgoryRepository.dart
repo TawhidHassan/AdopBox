@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:AdopBox/Bloc/CategoryBreedOrigin/category_breed_origin_cubit.dart';
 import 'package:AdopBox/Data/Model/Category/BreedOriginCategoryResponse.dart';
 import 'package:AdopBox/Data/Model/Category/CategoryResponse.dart';
+import 'package:logger/logger.dart';
 
 import '../../Data/Model/Auth/SignupResponse.dart';
 import '../../Dependenci Injection/injection.dart';
@@ -24,6 +25,7 @@ class CategoryRepository{
   Future<BreedOriginCategoryResponse> getCategoryBreedOrigin() async{
     final userRaw=await  getIt<ApiClient>().getData(uri: "api/v1/get-all-data",);
 
+    Logger().i(userRaw);
     return BreedOriginCategoryResponse.fromJson(userRaw);
   }
 

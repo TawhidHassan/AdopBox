@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:image/image.dart' as Img;
 import '../../Config/text_style.dart';
+import '../../Data/Model/Category/BreedOriginCategoryResponse.dart';
 import '../../Data/Model/Category/Category.dart';
 import '../../Repository/PostRepository/PostRepository.dart';
 import '../../Repository/SliderRepository/slider_repository.dart';
@@ -32,6 +33,7 @@ class PostCreateController extends GetxController implements GetxService{
   RxList<Breed>? breedList=RxList<Breed>();
   RxList<Origin>? originList=RxList<Origin>();
   PostCreate?  darftPostModel;
+  final getCatorgBredCirculler = false.obs;
   final postdataCirculler = false.obs;
   final selectCategory = "".obs;
   final selectCategoryId = "".obs;
@@ -45,6 +47,7 @@ class PostCreateController extends GetxController implements GetxService{
   Future<void> onSystemInit() async {
     darftPostModel=null;
     imageUploding.value=false;
+    getCatorgBredCirculler.value=false;
     selectCategory.value="";
     selectCategoryId.value="";
     selectBreed.value="";
@@ -130,17 +133,20 @@ class PostCreateController extends GetxController implements GetxService{
   void patCatergoryUpdate(Category category){
     selectCategory.value=category.categoryName!;
     selectCategoryId.value=category.id!;
+    darftPostModel!.category=category.id!;
 
     update();
   }
   void patBreedUpdate(Breed breed){
     selectBreed.value=breed.breedName!;
     selectBreedId.value=breed.id!;
+    darftPostModel!.breed=breed.id!;
     update();
   }
   void patOriginUpdate(Origin origin){
     selectOrigin.value=origin.originName!;
     selectOriginId.value=origin.id!;
+    darftPostModel!.origin=origin.id!;
     update();
   }
 
@@ -232,6 +238,20 @@ class PostCreateController extends GetxController implements GetxService{
       }
    });
 
+  }
+
+  Rx<BreedOriginCategoryResponse?>  breadOriginCategory=Rx<BreedOriginCategoryResponse?>(null);
+  Future getCategoryBreedOrigin() async{
+    getCatorgBredCirculler.value=true;
+   await postRepository!.getCategoryBreedOrigin().then((value){
+     getCatorgBredCirculler.value=false;
+      if(value!=null){
+        breadOriginCategory.value=value;
+        categoryList!.value = value.getData!.getCategory!;
+        breedList!.value = value.getData!.getBreed!;
+        originList!.value = value.getData!.getOrigin!;
+      }
+    });
   }
 
 }

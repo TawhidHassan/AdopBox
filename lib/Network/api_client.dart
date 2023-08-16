@@ -13,7 +13,7 @@ import '../service/LocalDataBase/localdata.dart';
 class ApiClient  {
   final String? appBaseUrl;
   static final String noInternetMessage = 'connection_to_api_server_failed';
-  final int timeoutInSeconds = 30;
+  final int timeoutInSeconds = 120;
 
   String? token;
   Map<String, String>? _mainHeaders;
@@ -60,16 +60,16 @@ class ApiClient  {
       if(Foundation.kDebugMode) {
         print('====> API Call: $uri\nHeader: $_mainHeaders');
         // Logger().i(uri);
-        Logger().i(appBaseUrl!+uri!);
+        // Logger().i(appBaseUrl!+uri!);
         // Logger().i("https://staging.somriddhi.com/api/app/learner/quiz/token-check");
-        Logger().w(_mainHeaders);
+        // Logger().w(_mainHeaders);
       }
       Http.Response _response = await Http.get(
         Uri.parse(appBaseUrl!+uri!),
         headers: headers ?? _mainHeaders,
       ).timeout(Duration(seconds: timeoutInSeconds));
 
-        Logger().i(jsonDecode(_response.body));
+        // Logger().i(jsonDecode(_response.body));
 
       return jsonDecode(_response.body);
     } catch (e) {
@@ -138,6 +138,22 @@ class ApiClient  {
         headers: headers ?? _mainHeaders,
       ).timeout(Duration(seconds: timeoutInSeconds));
       return handleResponse(_response, uri);
+    } catch (e) {
+      return null;
+    }
+  }
+  Future patchData( {String? uri, dynamic body,Map<String, String>? headers}) async {
+    try {
+      if(Foundation.kDebugMode) {
+        print('====> API Call: $uri\nHeader: $_mainHeaders');
+        print('====> API Body: $body');
+      }
+      Http.Response _response = await Http.patch(
+        Uri.parse(appBaseUrl!+uri!),
+        body: jsonEncode(body),
+        headers: headers ?? _mainHeaders,
+      ).timeout(Duration(seconds: timeoutInSeconds));
+      return jsonDecode(_response.body);
     } catch (e) {
       return null;
     }

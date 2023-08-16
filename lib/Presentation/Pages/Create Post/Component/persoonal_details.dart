@@ -1,6 +1,7 @@
 import 'package:AdopBox/Config/text_style.dart';
 import 'package:AdopBox/Constants/Colors/app_colors.dart';
 import 'package:AdopBox/Data/Model/PostCreate/PostCreate.dart';
+import 'package:AdopBox/GetX%20Controller/Home/HomeController.dart';
 import 'package:AdopBox/GetX%20Controller/Map/MapController.dart';
 import 'package:AdopBox/GetX%20Controller/PostCreate/PostCreateController.dart';
 import 'package:AdopBox/Presentation/Widgets/Loading/loading_widget.dart';
@@ -34,8 +35,9 @@ class PersonalDetails extends StatelessWidget {
   String? phone;
   String? id;
 
+  var mapController=Get.find<MapController>();
   void getToken() async{
-    Get.find<MapController>().onInit();
+    mapController.onInit();
     var tokenx = await getIt<LocalDataGet>().getData();
     if(tokenx.get('token')!=null){
         name=tokenx.get('name');
@@ -46,20 +48,23 @@ class PersonalDetails extends StatelessWidget {
         postCreateController!.darftPostModel!.postUserName=nameController.text;
         postCreateController!.darftPostModel!.postUsernumber=numberController.text;
         postCreateController!.darftPostModel!.postUser=id;
-        postCreateController!.darftPostModel!.lat=Get.find<MapController>().latLng.value!.latitude;
-        postCreateController!.darftPostModel!.long=Get.find<MapController>().latLng.value!.longitude;
-        locationController.text=Get.find<MapController>().latLng.value!.latitude.toString()+", "+Get.find<MapController>().latLng.value!.longitude.toString();
+        postCreateController!.darftPostModel!.lat=Get.find<HomeController>().latLng.value!.latitude;
+        postCreateController!.darftPostModel!.long=Get.find<HomeController>().latLng.value!.longitude;
+        locationController.text=Get.find<HomeController>().latLng.value!.latitude.toString()+", "+Get.find<HomeController>().latLng.value!.longitude.toString();
 
-      Logger().e(Get.find<MapController>().latLng.value!.toString());
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    getToken();
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(Duration.zero,(){
+      mapController.onInit();
       getToken();
     });
+    // Future.delayed(Duration(seconds: 1), () {
+    //   locationController.text=mapController.latLng.value!.latitude.toString()+", "+mapController.latLng.value!.longitude.toString();
+    //
+    // });
     return SizedBox(
       height: 1.0.sh,
       width: 1.0.sw,

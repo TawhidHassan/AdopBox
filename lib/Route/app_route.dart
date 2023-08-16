@@ -1,5 +1,6 @@
 import 'package:AdopBox/Bloc/Category/category_cubit.dart';
 import 'package:AdopBox/Presentation/Pages/Inbox/chat_page.dart';
+import 'package:AdopBox/Presentation/Pages/My%20Account/my_post_page.dart';
 import 'package:AdopBox/Presentation/Pages/Set%20Preference/set_preference_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +15,9 @@ import '../Presentation/Pages/Community/communit_details_page.dart';
 import '../Presentation/Pages/Community/community_page.dart';
 import '../Presentation/Pages/Community/create_community_post.dart';
 import '../Presentation/Pages/Create Post/create_post_page.dart';
+import '../Presentation/Pages/My Account/edite_profile.dart';
 import '../Presentation/Pages/My Account/my_account_page.dart';
+import '../Presentation/Pages/My Account/my_favoratite_post_page.dart';
 import '../Presentation/Pages/Notification/notification.dart';
 import '../Presentation/Pages/Others/OtherPages/about_page.dart';
 import '../Presentation/Pages/Others/OtherPages/faq_page.dart';
@@ -93,6 +96,20 @@ class AppRouter {
       return MaterialPageRoute(builder: (_) => OtpPage());
     case PERSONAL_INFO_PAGE:
       return MaterialPageRoute(builder: (_) => PersonalInfoPage());
+    case MY_POST_PAGE:
+      return MaterialPageRoute(builder: (_) => MyPostpage());
+    case POST_CREATE_PAGE:
+      return MaterialPageRoute(builder: (_) =>MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => CategoryBreedOriginCubit(),
+            ),
+          ],
+          child: CreatePostPage(isLogin: args!["isLogin"],)));
+    case MY_FAVORAITE_POST_PAGE:
+      return MaterialPageRoute(builder: (_) => MyFavoraitePostpage());
+    case EDIT_PROFILE_PAGE:
+      return MaterialPageRoute(builder: (_) => EditProfile(user: args!['user'],));
     case FORGET_PASSWORD_PAGE:
       return MaterialPageRoute(builder: (_) => ForgetPasswordPage());
     case COMUNITY_POST_PAGE:
@@ -102,7 +119,7 @@ class AppRouter {
     case COMUNITY_POST_CREATE_PAGE:
       return MaterialPageRoute(builder: (_) => CreateCommunityPost());
     case POST_DETAILS:
-      return MaterialPageRoute(builder: (_) => PostDetailPage());
+      return MaterialPageRoute(builder: (_) => PostDetailPage(id: args!["id"],catId: args['catId'],));
     case USER_DETAILS:
       return MaterialPageRoute(builder: (_) => Userprofile());
     case POST_DIRECTION_PAGE:
