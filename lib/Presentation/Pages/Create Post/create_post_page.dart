@@ -36,7 +36,12 @@ class CreatePostPage extends StatelessWidget {
               },
             ),
             actions: [
-              DraftIconCount(),
+              InkWell(
+                  onTap: (){
+                    Navigator.pushNamed(context, POST_DRAFT_PAGE);
+                  },
+                  child: DraftIconCount()
+              ),
               SizedBox(width: 24,)
             ],
           ),

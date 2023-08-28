@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const kPrimaryColor = Color(0xFF7C26E7);
+const kPrimaryColor = Color(0xff7C26E7);
 
 
 const kPrimaryLightColor = Color(0xFFF2F7FF);
@@ -25,14 +25,14 @@ const textFieldBorder = Color(0xFF8A96A9);
 Color myColorOpacity = const Color(0xff7C26E7).withOpacity(0.20);
 
 const MaterialColor kPrimaryColorx = MaterialColor(
-  0xFF7C26E7,
+  0xff7C26E7,
   <int, Color>{
     50: Color(0x99EDD3FD),
     100:  Color(0xFFEDD3FD),
     200:  Color(0xFFD9A8FC),
     300:  Color(0xFFBE7BF7),
     400:  Color(0xFFA359F0),
-    500:  Color(0xFF7C26E7),
+    500:  Color(0xff7C26E7),
     600:  Color(0xFF601BC6),
     700:  Color(0xFF4713A6),
     800:  Color(0xFF310C85),

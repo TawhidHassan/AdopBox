@@ -15,6 +15,7 @@ import '../Presentation/Pages/Community/communit_details_page.dart';
 import '../Presentation/Pages/Community/community_page.dart';
 import '../Presentation/Pages/Community/create_community_post.dart';
 import '../Presentation/Pages/Create Post/create_post_page.dart';
+import '../Presentation/Pages/Create Post/draft_post.dart';
 import '../Presentation/Pages/My Account/edite_profile.dart';
 import '../Presentation/Pages/My Account/my_account_page.dart';
 import '../Presentation/Pages/My Account/my_favoratite_post_page.dart';
@@ -106,6 +107,8 @@ class AppRouter {
             ),
           ],
           child: CreatePostPage(isLogin: args!["isLogin"],)));
+    case POST_DRAFT_PAGE:
+      return MaterialPageRoute(builder: (_) => DraftPostPage());
     case MY_FAVORAITE_POST_PAGE:
       return MaterialPageRoute(builder: (_) => MyFavoraitePostpage());
     case EDIT_PROFILE_PAGE:

@@ -36,8 +36,7 @@ class HomeSlider extends StatelessWidget {
                   options: CarouselOptions(
                       enableInfiniteScroll: false,
                       autoPlay: true,
-                      aspectRatio: 20 / 7,
-                      viewportFraction: 0.9,
+                      aspectRatio: 15 / 6,
                       // enlargeFactor: 0.3,
                       // enlargeCenterPage: true,
                       onPageChanged: (int page, css) {
@@ -47,80 +46,19 @@ class HomeSlider extends StatelessWidget {
                   items: data!.getData!.map((slider) {
                     return Builder(
                       builder: (BuildContext context) {
-                        return Container(
-                          width: 0.90.sw,
-                          margin: EdgeInsets.symmetric(horizontal: 8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            color: kPrimaryColorx.shade300,
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                  flex: 6,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(16),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        // Container(
-                                        //   padding: EdgeInsets.symmetric(vertical: 6,horizontal: 12),
-                                        //   decoration: BoxDecoration(
-                                        //       color: Color(0xFFF08F4F).withOpacity(0.75),
-                                        //       borderRadius: BorderRadius.circular(50)
-                                        //   ),
-                                        //   child: Text(
-                                        //     slider.heading!,
-                                        //     style: regularText(
-                                        //         13, color: Color(0XFFFBE3D3)),),
-                                        // ),
-                                        // SizedBox(height: 8.h,),
-                                        Text(
-                                          slider.bannerTitle!,
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w700,
-                                            height: 1.25,
-                                          ),),
-                                        // SizedBox(height: 12.h,),
-                                        // CustomButton(orderRadius: 4,
-                                        //     height: 29,
-                                        //     width: 83,
-                                        //     color: Colors.white,
-                                        //     textColor: kPrimaryColorx,
-                                        //     title: "Details",
-                                        //     onTap: () {
-                                        //
-                                        //     }),
-                                      ],
-                                    ),
-                                  )
-                              ),
-                              Expanded(
-                                flex:7,
-                                child: Container(
-                                    padding: EdgeInsets.all(8),
-                                    margin: EdgeInsets.only(right: 12),
-                                    child: CachedNetworkImage(
-                                      imageUrl: slider.photo!,
-                                      placeholder: (context, url) => LoadingWidget(),
-                                      imageBuilder: (context, image) =>  Container(
-
-                                        decoration:  BoxDecoration(
-                                            borderRadius:  BorderRadius.circular(8),
-                                            image: DecorationImage(
-                                              image: image,
-                                              scale: 1.0,
-
-                                            )
-                                        ),
-                                      ),
-                                    )
-                                ),
-                              )
-                            ],
+                        return CachedNetworkImage(
+                          imageUrl: slider.photo!,
+                          placeholder: (context, url) => LoadingWidget(),
+                          imageBuilder: (context, image) =>  Container(
+                            width: 0.9.sw,
+                            margin: EdgeInsets.symmetric(horizontal: 8),
+                            decoration:  BoxDecoration(
+                                borderRadius:  BorderRadius.circular(8),
+                                image: DecorationImage(
+                                  image: image,
+                                  fit: BoxFit.fill
+                                )
+                            ),
                           ),
                         );
                       },
